@@ -1,0 +1,89 @@
+{
+  "system_name": "Loan Factory AI Knowledge Platform",
+  "repo_name": "notebooklm_starter_kits_master_bundle",
+  "owner": "Jeremy McDonald",
+  "updated_at": "2026-03-23",
+  "current_phase": "Phase 2 - Working product shell and focused knowledge layer",
+  "active_contract": "Agent_Task_Contract.md",
+  "knowledge_system_root": "knowledge_system",
+  "current_state": {
+    "status": "first_pass_built",
+    "summary": "The repo now contains a working Next.js internal training email studio, a file-backed local data layer, provider adapters with mock-safe fallback, seeded Monday and Thursday content, and a focused markdown knowledge system that supports the product shell."
+  },
+  "app_status": {
+    "status": "working_first_pass_built",
+    "routes": [
+      "/",
+      "/drafts",
+      "/drafts/[id]",
+      "/approvals",
+      "/schedule",
+      "/assets",
+      "/knowledge",
+      "/topics",
+      "/settings",
+      "/providers",
+      "/archive"
+    ],
+    "stack": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Server actions",
+      "Local file-backed state",
+      "Provider adapter layer"
+    ]
+  },
+  "lane_status": {
+    "01_google_ai_for_loan_officers": {
+      "status": "focused_first_pass_built",
+      "next_priority": "Validate current Google AI capabilities against official sources, then expand the lane into a fuller tool map and review-rules set."
+    },
+    "02_loan_factory_and_terraplus_operations": {
+      "status": "focused_first_pass_built",
+      "next_priority": "Load internal workflow artifacts, then replace the current scaffolds with validated process maps and approval rules."
+    },
+    "03_sales_marketing_communication_and_conversion": {
+      "status": "v1_first_pass_built",
+      "next_priority": "Add reviewed real message examples and upgrade the prompt library once HAPPA is factually defined."
+    },
+    "04_weekly_training_production_lab": {
+      "status": "v1_first_pass_built",
+      "next_priority": "Run one real transcript through the studio and weekly workflow, then tighten the template and topic banks using source grounded evidence."
+    }
+  },
+  "shared_assets": [
+    "knowledge_system/KNOWLEDGE_SYSTEM_MANIFEST.md",
+    "knowledge_system/shared/standards/KNOWLEDGE_AUTHORING_STANDARD.md",
+    "knowledge_system/shared/standards/COMPLIANCE_DISCLAIMER_SNIPPETS.md",
+    "knowledge_system/shared/workflows/NOTEBOOK_OUTPUT_TO_MARKDOWN_WORKFLOW.md",
+    "knowledge_system/shared/prompts/NOTEBOOKLM_GEMINI_PROMPT_LIBRARY.md"
+  ],
+  "validation": {
+    "status": "completed_structural_validation",
+    "notes": [
+      "npm install completed successfully.",
+      "npm run typecheck passed.",
+      "npm run build passed.",
+      "Dashboard, Draft Studio, and draft detail pages were inspected through a browser-backed Playwright CLI pass.",
+      "HTTP checks confirmed live 200 responses for /topics, /drafts/draft-monday-2, and /favicon.ico.",
+      "Needs factual validation and Needs compliance review markers were checked across the knowledge layer."
+    ]
+  },
+  "open_flags": {
+    "needs_factual_validation": [
+      "Real company process details and approval owners",
+      "Real performance examples and message performance data",
+      "Current Google AI product capabilities and internal tool availability",
+      "Portal field requirements and automation trigger design",
+      "The meaning and intended usage of HAPPA in the Loan Factory context",
+      "MOSO and seven-day SLA definitions and approved workflow meaning"
+    ],
+    "needs_compliance_review": [
+      "Borrower facing, lead facing, and realtor facing templates or messages before live use",
+      "Training or communication content that references loan products, rates, approvals, fees, timelines, or borrower scenarios",
+      "Operational guides covering rate locks, extensions, rate alerts, or AI-assisted 1003 handling"
+    ]
+  },
+  "next_best_move": "Take one real Monday topic and one real Thursday topic through the live studio flow with validated source material, then tune the AI prompts, approval notes, and topic banks from Jeremy's feedback."
+}

@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(circle at top left, rgba(212, 109, 42, 0.14), transparent 28%),
+    radial-gradient(circle at top right, rgba(96, 116, 102, 0.1), transparent 24%),
+    #f3efe7;
+}
+
+body {
+  min-height: 100vh;
+  color: #171412;
+}
+
+::selection {
+  background: rgba(212, 109, 42, 0.18);
+}
+
+@layer components {
+  .panel {
+    @apply rounded-shell border border-line/80 bg-paper/95 shadow-panel backdrop-blur;
+  }
+
+  .label {
+    @apply text-[11px] font-semibold uppercase tracking-[0.24em] text-mute;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.3em] text-signal;
+  }
+
+  .text-input {
+    @apply w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-signal focus:ring-2 focus:ring-signal/10;
+  }
+
+  .text-area {
+    @apply min-h-[130px] w-full rounded-[24px] border border-line bg-white px-4 py-3 text-sm leading-6 text-ink outline-none transition focus:border-signal focus:ring-2 focus:ring-signal/10;
+  }
+
+  .select-input {
+    @apply w-full rounded-2xl border border-line bg-white px-4 py-3 text-sm text-ink outline-none transition focus:border-signal focus:ring-2 focus:ring-signal/10;
+  }
+
+  .primary-btn {
+    @apply inline-flex items-center justify-center rounded-full bg-ink px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#28211d];
+  }
+
+  .secondary-btn {
+    @apply inline-flex items-center justify-center rounded-full border border-line bg-white px-4 py-2.5 text-sm font-semibold text-ink transition hover:border-ink/40 hover:bg-canvas;
+  }
+
+  .danger-btn {
+    @apply inline-flex items-center justify-center rounded-full bg-[#8c3b21] px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#742f19];
+  }
+
+  .soft-grid {
+    background-image:
+      linear-gradient(rgba(23, 20, 18, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(23, 20, 18, 0.04) 1px, transparent 1px);
+    background-size: 26px 26px;
+  }
+}
