@@ -112,6 +112,15 @@ export function createSeedState(): StudioState {
         sizeLabel: "linked video"
       },
       {
+        id: "asset-video-heygen-1",
+        name: "Mock HeyGen Tutorial Review",
+        kind: "video",
+        url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+        source: "link",
+        createdAt: now,
+        sizeLabel: "mock review video"
+      },
+      {
         id: "asset-link-1",
         name: "Processor Handoff Checklist",
         kind: "link",
@@ -261,7 +270,7 @@ export function createSeedState(): StudioState {
         sourceLane: "Weekly Training",
         topic: "Transcript extraction discipline",
         notes: "Useful for the Thursday internal production rhythm.",
-        assetIds: ["asset-video-1"],
+        assetIds: ["asset-video-heygen-1", "asset-video-1"],
         status: "sent",
         createdAt: now,
         updatedAt: now,
@@ -269,7 +278,37 @@ export function createSeedState(): StudioState {
         aiMode: "mock",
         revisionCount: 2,
         lastInstruction: "shorten this",
-        complianceMode: "safe"
+        complianceMode: "safe",
+        tutorialVideo: {
+          status: "attached",
+          mode: "mock",
+          title: "training_thursday_demo",
+          script: [
+            "Jeremy here with a Thursday training move on transcript extraction discipline.",
+            "",
+            "Take one usable lesson from the recording instead of trying to recap everything.",
+            "Keep the teaching point short, tactical, and ready for the field.",
+            "Archive the extra ideas instead of turning the email into a summary wall.",
+            "",
+            "Compliance footer placeholder. Needs compliance review before any live HeyGen render or distribution."
+          ].join("\n"),
+          scriptLocked: true,
+          aspectRatio: "16:9",
+          background: "#F3EFE7",
+          renderId: "heygen-mock-seed-review",
+          renderStatus: "completed",
+          pollCount: 3,
+          scriptApprovedAt: now,
+          requestedAt: now,
+          lastPolledAt: now,
+          videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+          thumbnailUrl:
+            "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+          durationLabel: "1:18 mock render",
+          errorMessage: null,
+          attachedAssetId: "asset-video-heygen-1",
+          rejectionReason: null
+        }
       },
       {
         id: "draft-monday-3",

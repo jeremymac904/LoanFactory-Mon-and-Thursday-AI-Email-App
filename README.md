@@ -6,7 +6,7 @@ It is built for review-first operation:
 
 1. Jeremy can generate, revise, approve, and schedule issues in mock mode with no secrets.
 2. The app keeps a hard human approval gate before anything can be scheduled or sent.
-3. Provider adapters are already in place for later Gemini, email, storage, auth, and scheduler wiring.
+3. Provider adapters are already in place for later Gemini, HeyGen, email, storage, auth, and scheduler wiring.
 
 ## Product Scope
 
@@ -28,6 +28,7 @@ The studio supports:
 8. Settings and memory
 9. Provider and environment setup
 10. Sent archive
+11. HeyGen tutorial video workflow from approved drafts
 
 ## Current Stack
 
@@ -75,6 +76,7 @@ Leave the defaults in `.env.example` or keep `.env.local` empty for:
 3. Local asset storage
 4. Jeremy local-admin auth stub
 5. Local schedule queue behavior
+6. Mock HeyGen tutorial script, render, polling, review, and attach flow
 
 If you want to reset the local review state back to the seeded examples, delete `data/studio.json` and restart the app.
 
@@ -85,10 +87,11 @@ Copy `.env.example` to `.env.local` only when you are ready to wire live provide
 If secrets are missing:
 
 1. AI stays in mock mode
-2. Email stays in preview and sent-log mode
-3. Storage uses local file mode
-4. Auth uses a Jeremy local-admin stub
-5. Scheduling stays in local queue mode
+2. HeyGen stays in mock tutorial-video mode
+3. Email stays in preview and sent-log mode
+4. Storage uses local file mode
+5. Auth uses a Jeremy local-admin stub
+6. Scheduling stays in local queue mode
 
 ## Netlify Readiness
 

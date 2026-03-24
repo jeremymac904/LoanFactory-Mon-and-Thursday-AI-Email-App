@@ -7,6 +7,12 @@ import {
 import { generateDraft, reviseDraft } from "@/lib/providers/ai";
 import { getAuthContext } from "@/lib/providers/auth";
 import { sendEmailDraft } from "@/lib/providers/email";
+import {
+  buildTutorialScriptFromDraft,
+  getHeyGenProviderMode,
+  pollTutorialVideoRender,
+  requestTutorialVideoRender
+} from "@/lib/providers/heygen";
 import { getProviderStatuses } from "@/lib/providers/status";
 import { createLinkedAsset, storeUploadedFile } from "@/lib/providers/storage";
 import { createSeedState } from "@/lib/seed";
@@ -18,7 +24,8 @@ import type {
   DraftItem,
   SendDay,
   SourceLane,
-  StudioState
+  StudioState,
+  TutorialVideoWorkflow
 } from "@/lib/types";
 
 function nowIso(): string {
@@ -44,6 +51,34 @@ function toList(input: string): string[] {
 
 function summarizeApprovalPattern(draft: DraftItem): string {
   return `Approved pattern from "${draft.subject}": ${draft.sendDay} ${draft.audience} draft with ${draft.revisionCount} revisions and one clear lesson.`;
+}
+
+function canUseTutorialVideoFlow(draft: DraftItem): boolean {
+  return draft.status === "approved" || draft.status === "scheduled";
+}
+
+function createTutorialVideoState(draft: DraftItem): TutorialVideoWorkflow {
+  return {
+    status: "script_draft",
+    mode: getHeyGenProviderMode(),
+    title: `training_${draft.sendDay.toLowerCase()}_${draft.id.slice(0, 8)}`,
+    script: buildTutorialScriptFromDraft(draft),
+    scriptLocked: false,
+    aspectRatio: (process.env.HEYGEN_ASPECT_RATIO as "16:9" | "9:16") || "16:9",
+    background: process.env.HEYGEN_BACKGROUND || "#F3EFE7",
+    renderId: null,
+    renderStatus: null,
+    pollCount: 0,
+    scriptApprovedAt: null,
+    requestedAt: null,
+    lastPolledAt: null,
+    videoUrl: null,
+    thumbnailUrl: null,
+    durationLabel: null,
+    errorMessage: null,
+    attachedAssetId: null,
+    rejectionReason: null
+  };
 }
 
 function createDraftRecord(
@@ -79,7 +114,8 @@ function createDraftRecord(
     aiMode: generated.mode,
     revisionCount: 0,
     lastInstruction: null,
-    complianceMode: input.complianceMode
+    complianceMode: input.complianceMode,
+    tutorialVideo: null
   };
 }
 
@@ -612,5 +648,294 @@ export async function toggleMemorySignal(signalId: string, active: boolean) {
           }
         : signal
     )
+  }));
+}
+
+export async function createTutorialVideoScript(draftId: string) {
+  const state = await readStudioState();
+  const draft = pickDraft(state, draftId);
+
+  if (!canUseTutorialVideoFlow(draft)) {
+    throw new Error("Tutorial video workflow starts only after draft approval.");
+  }
+
+  const updatedAt = nowIso();
+  const nextWorkflow = createTutorialVideoState(draft);
+
+  await updateStudioState((current) => ({
+    ...current,
+    drafts: current.drafts.map((entry) =>
+      entry.id === draftId
+        ? {
+            ...entry,
+            tutorialVideo: nextWorkflow,
+            updatedAt
+          }
+        : entry
+    )
+  }));
+
+  return nextWorkflow;
+}
+
+export async function saveTutorialVideoScript(draftId: string, script: string) {
+  const updatedAt = nowIso();
+
+  await updateStudioState((current) => ({
+    ...current,
+    drafts: current.drafts.map((entry) => {
+      if (entry.id !== draftId || !entry.tutorialVideo) {
+        return entry;
+      }
+
+      if (entry.tutorialVideo.scriptLocked) {
+        throw new Error("Tutorial script is locked once generation begins.");
+      }
+
+      return {
+        ...entry,
+        tutorialVideo: {
+          ...entry.tutorialVideo,
+          status: "script_draft",
+          script,
+          scriptApprovedAt: null,
+          errorMessage: null,
+          rejectionReason: null
+        },
+        updatedAt
+      };
+    })
+  }));
+}
+
+export async function approveTutorialVideoScript(draftId: string, note: string) {
+  const createdAt = nowIso();
+
+  await updateStudioState((current) => ({
+    ...current,
+    drafts: current.drafts.map((entry) => {
+      if (entry.id !== draftId || !entry.tutorialVideo) {
+        return entry;
+      }
+
+      if (entry.tutorialVideo.scriptLocked) {
+        throw new Error("Tutorial script is locked once generation begins.");
+      }
+
+      return {
+        ...entry,
+        tutorialVideo: {
+          ...entry.tutorialVideo,
+          status: "script_approved",
+          scriptApprovedAt: createdAt,
+          errorMessage: null,
+          rejectionReason: null
+        },
+        updatedAt: createdAt
+      };
+    }),
+    approvals: [
+      {
+        id: crypto.randomUUID(),
+        draftId,
+        action: "video_script_approved",
+        note: note || "Tutorial video script approved for render.",
+        createdAt
+      },
+      ...current.approvals
+    ]
+  }));
+}
+
+export async function requestTutorialVideoGeneration(draftId: string) {
+  const state = await readStudioState();
+  const draft = pickDraft(state, draftId);
+
+  if (!draft.tutorialVideo || draft.tutorialVideo.status !== "script_approved") {
+    throw new Error("Tutorial script must be approved before render.");
+  }
+
+  const createdAt = nowIso();
+  const result = await requestTutorialVideoRender({
+    draft,
+    script: draft.tutorialVideo.script
+  });
+
+  await updateStudioState((current) => ({
+    ...current,
+    drafts: current.drafts.map((entry) =>
+      entry.id === draftId && entry.tutorialVideo
+        ? {
+            ...entry,
+            tutorialVideo: {
+              ...entry.tutorialVideo,
+              mode: result.mode,
+              status: result.status === "processing" ? "rendering" : "failed",
+              scriptLocked: true,
+              renderId: result.renderId || null,
+              renderStatus: result.status,
+              requestedAt: createdAt,
+              pollCount: 0,
+              lastPolledAt: null,
+              errorMessage: result.errorMessage || null
+            },
+            updatedAt: createdAt
+          }
+        : entry
+    ),
+    approvals: [
+      {
+        id: crypto.randomUUID(),
+        draftId,
+        action: result.status === "processing" ? "video_render_requested" : "video_failed",
+        note:
+          result.status === "processing"
+            ? `Tutorial video render requested in ${result.mode} mode.`
+            : result.errorMessage || "Tutorial video render failed.",
+        createdAt
+      },
+      ...current.approvals
+    ]
+  }));
+}
+
+export async function pollTutorialVideoStatus(draftId: string) {
+  const state = await readStudioState();
+  const draft = pickDraft(state, draftId);
+
+  if (!draft.tutorialVideo || draft.tutorialVideo.status !== "rendering") {
+    throw new Error("Tutorial video is not currently rendering.");
+  }
+
+  const createdAt = nowIso();
+  const result = await pollTutorialVideoRender(draft.tutorialVideo);
+  const nextPollCount = draft.tutorialVideo.pollCount + 1;
+  const eventAction =
+    result.status === "completed"
+      ? "video_review_ready"
+      : result.status === "failed"
+        ? "video_failed"
+        : null;
+
+  await updateStudioState((current) => ({
+    ...current,
+    drafts: current.drafts.map((entry) =>
+      entry.id === draftId && entry.tutorialVideo
+        ? {
+            ...entry,
+            tutorialVideo: {
+              ...entry.tutorialVideo,
+              status:
+                result.status === "completed"
+                  ? "review"
+                  : result.status === "failed"
+                    ? "failed"
+                    : "rendering",
+              renderStatus: result.status,
+              pollCount: nextPollCount,
+              lastPolledAt: createdAt,
+              videoUrl: result.videoUrl || entry.tutorialVideo.videoUrl || null,
+              thumbnailUrl: result.thumbnailUrl || entry.tutorialVideo.thumbnailUrl || null,
+              durationLabel: result.durationLabel || entry.tutorialVideo.durationLabel || null,
+              errorMessage: result.errorMessage || null
+            },
+            updatedAt: createdAt
+          }
+        : entry
+    ),
+    approvals: eventAction
+      ? [
+          {
+            id: crypto.randomUUID(),
+            draftId,
+            action: eventAction,
+            note:
+              result.status === "completed"
+                ? "Tutorial render completed and is ready for human review."
+                : result.errorMessage || "Tutorial render failed.",
+            createdAt
+          },
+          ...current.approvals
+        ]
+      : current.approvals
+  }));
+}
+
+export async function approveTutorialVideoAttach(draftId: string) {
+  const state = await readStudioState();
+  const draft = pickDraft(state, draftId);
+
+  if (!draft.tutorialVideo || draft.tutorialVideo.status !== "review" || !draft.tutorialVideo.videoUrl) {
+    throw new Error("Tutorial video must be ready for review before attaching.");
+  }
+
+  const createdAt = nowIso();
+  const asset = createLinkedAsset({
+    name: `Tutorial video: ${draft.title}`,
+    url: draft.tutorialVideo.videoUrl,
+    kind: "video"
+  });
+
+  await updateStudioState((current) => ({
+    ...current,
+    assets: [asset, ...current.assets],
+    drafts: current.drafts.map((entry) =>
+      entry.id === draftId && entry.tutorialVideo
+        ? {
+            ...entry,
+            assetIds: entry.assetIds.includes(asset.id) ? entry.assetIds : [asset.id, ...entry.assetIds],
+            tutorialVideo: {
+              ...entry.tutorialVideo,
+              status: "attached",
+              attachedAssetId: asset.id,
+              rejectionReason: null
+            },
+            updatedAt: createdAt
+          }
+        : entry
+    ),
+    approvals: [
+      {
+        id: crypto.randomUUID(),
+        draftId,
+        action: "video_attached",
+        note: "Tutorial video approved and attached to the draft.",
+        createdAt
+      },
+      ...current.approvals
+    ]
+  }));
+}
+
+export async function restartTutorialVideoWorkflow(draftId: string, reason: string) {
+  const state = await readStudioState();
+  const draft = pickDraft(state, draftId);
+  const createdAt = nowIso();
+  const nextWorkflow = createTutorialVideoState(draft);
+
+  await updateStudioState((current) => ({
+    ...current,
+    drafts: current.drafts.map((entry) =>
+      entry.id === draftId
+        ? {
+            ...entry,
+            tutorialVideo: {
+              ...nextWorkflow,
+              rejectionReason: reason || "Restart requested after review."
+            },
+            updatedAt: createdAt
+          }
+        : entry
+    ),
+    approvals: [
+      {
+        id: crypto.randomUUID(),
+        draftId,
+        action: "video_restarted",
+        note: reason || "Tutorial video workflow restarted for a new script or render.",
+        createdAt
+      },
+      ...current.approvals
+    ]
   }));
 }

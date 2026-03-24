@@ -10,6 +10,7 @@ export function getProviderStatuses(): ProviderStatus[] {
   const storageMode = process.env.STORAGE_PROVIDER || "local";
   const authMode = process.env.AUTH_PROVIDER || "local-admin";
   const schedulerMode = process.env.SCHEDULER_PROVIDER || "local";
+  const heyGenMode = process.env.HEYGEN_PROVIDER || (process.env.HEYGEN_API_KEY ? "heygen" : "mock");
 
   return [
     {
@@ -51,6 +52,26 @@ export function getProviderStatuses(): ProviderStatus[] {
         authMode === "local-admin"
           ? "Jeremy local admin stub is active."
           : "External auth is not yet wired beyond the adapter boundary."
+    },
+    {
+      name: "HeyGen",
+      configured:
+        heyGenMode === "mock" ||
+        isConfigured(["HEYGEN_API_KEY", "HEYGEN_API_URL", "HEYGEN_AVATAR_ID", "HEYGEN_VOICE_ID"]),
+      mode: heyGenMode,
+      envKeys: [
+        "HEYGEN_PROVIDER",
+        "HEYGEN_API_KEY",
+        "HEYGEN_API_URL",
+        "HEYGEN_AVATAR_ID",
+        "HEYGEN_VOICE_ID",
+        "HEYGEN_ASPECT_RATIO",
+        "HEYGEN_BACKGROUND"
+      ],
+      note:
+        heyGenMode === "mock"
+          ? "Script approval, render request, polling, failure handling, and final video review all work in mock mode."
+          : "Live render wiring still needs exact endpoint, avatar_id, and voice_id validation before it should be treated as complete."
     },
     {
       name: "Scheduler",

@@ -9,14 +9,16 @@ This folder holds the durable documentation, templates, playbooks, and workflow 
 
 ## Current Status
 
-First pass foundation build.
+Focused first-use knowledge layer for the internal training email studio.
 
 Built in this pass:
 
 1. Shared standards, workflow, and prompt docs
-2. Weekly training lane v1 documents
-3. Sales and communication lane v1 documents
-4. Scaffold landing zones for Google AI and operations lanes
+2. Source-grounded Google AI lane documents
+3. Source-grounded operations lane documents
+4. Source-grounded sales and communication lane documents
+5. Weekly training lane templates, workflows, and topic banks
+6. HeyGen tutorial video workflow implementation and review docs
 
 ## Operating Rules
 
@@ -38,6 +40,8 @@ Built in this pass:
    Built v1 communication frameworks, playbooks, and reusable templates
 5. `04_weekly_training_production_lab/`
    Built v1 weekly training templates, style guides, and workflows
+6. `05_heygen_tutorial_video_workflow/`
+   Built PASS 4 tutorial-video docs for script approval, rendering, polling, review, and attach flow
 
 ## Upstream To Downstream Flow
 

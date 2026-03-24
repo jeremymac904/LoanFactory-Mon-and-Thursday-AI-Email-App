@@ -5,17 +5,24 @@ import { redirect } from "next/navigation";
 
 import {
   addMemoryNote,
+  approveTutorialVideoAttach,
+  approveTutorialVideoScript,
   approveDraft,
   archiveDraft,
   batchScheduleMonth,
+  createTutorialVideoScript,
   createDraftFromTopic,
   createGeneratedDraft,
   markScheduleSent,
+  pollTutorialVideoStatus,
   rejectDraft,
+  requestTutorialVideoGeneration,
+  restartTutorialVideoWorkflow,
   reviseExistingDraft,
   saveAsset,
   saveDraftContent,
   savePreferences,
+  saveTutorialVideoScript,
   scheduleApprovedDraft,
   toggleMemorySignal
 } from "@/lib/studio-service";
@@ -161,4 +168,56 @@ export async function addMemoryNoteAction(formData: FormData) {
 export async function toggleMemorySignalAction(formData: FormData) {
   await toggleMemorySignal(String(formData.get("signalId")), String(formData.get("active")) === "true");
   revalidatePath("/settings");
+}
+
+export async function createTutorialVideoScriptAction(formData: FormData) {
+  const draftId = String(formData.get("draftId"));
+  await createTutorialVideoScript(draftId);
+  revalidatePath(`/drafts/${draftId}`);
+  revalidatePath("/approvals");
+}
+
+export async function saveTutorialVideoScriptAction(formData: FormData) {
+  const draftId = String(formData.get("draftId"));
+  await saveTutorialVideoScript(draftId, String(formData.get("script") || ""));
+  revalidatePath(`/drafts/${draftId}`);
+  revalidatePath("/approvals");
+}
+
+export async function approveTutorialVideoScriptAction(formData: FormData) {
+  const draftId = String(formData.get("draftId"));
+  await approveTutorialVideoScript(draftId, String(formData.get("note") || ""));
+  revalidatePath(`/drafts/${draftId}`);
+  revalidatePath("/approvals");
+}
+
+export async function requestTutorialVideoGenerationAction(formData: FormData) {
+  const draftId = String(formData.get("draftId"));
+  await requestTutorialVideoGeneration(draftId);
+  revalidatePath(`/drafts/${draftId}`);
+  revalidatePath("/approvals");
+  revalidatePath("/providers");
+}
+
+export async function pollTutorialVideoStatusAction(formData: FormData) {
+  const draftId = String(formData.get("draftId"));
+  await pollTutorialVideoStatus(draftId);
+  revalidatePath(`/drafts/${draftId}`);
+  revalidatePath("/approvals");
+}
+
+export async function approveTutorialVideoAttachAction(formData: FormData) {
+  const draftId = String(formData.get("draftId"));
+  await approveTutorialVideoAttach(draftId);
+  revalidatePath(`/drafts/${draftId}`);
+  revalidatePath("/drafts");
+  revalidatePath("/assets");
+  revalidatePath("/archive");
+}
+
+export async function restartTutorialVideoWorkflowAction(formData: FormData) {
+  const draftId = String(formData.get("draftId"));
+  await restartTutorialVideoWorkflow(draftId, String(formData.get("reason") || ""));
+  revalidatePath(`/drafts/${draftId}`);
+  revalidatePath("/approvals");
 }

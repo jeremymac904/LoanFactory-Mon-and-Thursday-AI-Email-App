@@ -11,6 +11,7 @@ import {
 import { EmailPreview } from "@/components/email-preview";
 import { SectionFrame } from "@/components/section-frame";
 import { StatusBadge } from "@/components/status-badge";
+import { TutorialVideoWorkflowCard } from "@/components/tutorial-video-workflow";
 import { getNextSendDate } from "@/lib/date-utils";
 import { getStudioSnapshot } from "@/lib/studio-service";
 
@@ -193,6 +194,13 @@ export default async function DraftDetailPage({
               previewText={draft.previewText}
               body={draft.body}
               attachments={attachments}
+              tutorialVideo={draft.tutorialVideo}
+            />
+
+            <TutorialVideoWorkflowCard
+              draftId={draft.id}
+              draftStatus={draft.status}
+              tutorialVideo={draft.tutorialVideo}
             />
 
             <div className="rounded-[28px] border border-line bg-white p-5">
@@ -220,6 +228,12 @@ export default async function DraftDetailPage({
                 <p>
                   <strong className="text-ink">Approval gate:</strong> Assets stay in preview mode until Jeremy
                   explicitly approves and schedules the draft.
+                </p>
+                <p>
+                  <strong className="text-ink">Tutorial video:</strong>{" "}
+                  {draft.tutorialVideo
+                    ? `${draft.tutorialVideo.status} / ${draft.tutorialVideo.mode} mode`
+                    : "Not started"}
                 </p>
               </div>
             </div>

@@ -10,15 +10,15 @@
     "remote_url": "https://github.com/jeremymac904/LoanFactory-Mon-and-Thursday-AI-Email-App.git",
     "last_pushed_ref": "origin/main"
   },
-  "current_phase": "Phase 4 - PASS 3 review polish and deploy readiness",
+  "current_phase": "Phase 5 - PASS 4 HeyGen tutorial video workflow",
   "active_contract": "Agent_Task_Contract.md",
   "knowledge_system_root": "knowledge_system",
   "current_state": {
-    "status": "pass3_review_polished",
-    "summary": "The repo now contains a review-polished training email studio with clearer draft, approval, schedule, settings, provider, and README guidance, stronger seeded examples, mock-mode clarity with no secrets, and validated browser flow on the existing shell."
+    "status": "pass4_heygen_tutorial_workflow_added",
+    "summary": "The repo now contains the existing review-polished training email studio plus a mock-first HeyGen tutorial video workflow tied to approved drafts, imported HeyGen source docs, focused implementation knowledge docs, and browser-validated script approval, render, poll, review, and attach flow."
   },
   "app_status": {
-    "status": "working_shell_review_polished",
+    "status": "working_shell_with_mock_heygen_tutorial_flow",
     "routes": [
       "/",
       "/drafts",
@@ -38,7 +38,8 @@
       "Tailwind CSS",
       "Server actions",
       "Local file-backed state",
-      "Provider adapter layer"
+      "Provider adapter layer",
+      "Mock-first HeyGen tutorial video boundary"
     ]
   },
   "lane_status": {
@@ -57,6 +58,10 @@
     "04_weekly_training_production_lab": {
       "status": "pass2_source_grounded_with_pass3_ui_polish",
       "next_priority": "Review one generated Monday issue and one generated Thursday issue with Jeremy and tune the template, seed examples, and memory defaults from actual edit patterns."
+    },
+    "05_heygen_tutorial_video_workflow": {
+      "status": "pass4_source_grounded_mock_first",
+      "next_priority": "Validate the exact live HeyGen avatar, voice, endpoint, and rights inputs before enabling live render mode."
     }
   },
   "shared_assets": [
@@ -65,19 +70,21 @@
     "knowledge_system/shared/standards/COMPLIANCE_DISCLAIMER_SNIPPETS.md",
     "knowledge_system/shared/workflows/NOTEBOOK_OUTPUT_TO_MARKDOWN_WORKFLOW.md",
     "knowledge_system/shared/prompts/NOTEBOOKLM_GEMINI_PROMPT_LIBRARY.md",
-    "continuity/source_packets/2026-03-23_codex_pass2/SOURCE_PACKET_IMPORT_MAP.md"
+    "continuity/source_packets/2026-03-23_codex_pass2/SOURCE_PACKET_IMPORT_MAP.md",
+    "continuity/source_packets/2026-03-23_codex_pass4_heygen/SOURCE_PACKET_IMPORT_MAP.md"
   ],
   "validation": {
-    "status": "pass3_validation_completed",
+    "status": "pass4_heygen_validation_completed",
     "notes": [
-      "Raw source packet bundle was unpacked and imported into continuity/source_packets/2026-03-23_codex_pass2/.",
-      "PASS 3 polished the existing shell without rebuilding it.",
+      "Uploaded HeyGen source docs were imported into continuity/source_packets/2026-03-23_codex_pass4_heygen/ as traceable raw material.",
+      "PASS 4 added a HeyGen tutorial video workflow to the existing shell without rebuilding it.",
       "npm run typecheck passed.",
-      "npm run build passed after clearing a corrupted generated .next build directory.",
-      "Browser-backed validation on a production-style server confirmed the dashboard, schedule queue, and provider setup copy and posture.",
-      "Browser-backed validation revised the Monday lead-reply draft with AI instructions, approved it, and moved it into the schedule queue.",
-      "Mock-mode posture was confirmed with provider-secret env keys empty.",
-      "README setup guidance was rechecked against the current mock-mode and Netlify posture."
+      "npm run build passed.",
+      "Browser-backed validation on a production-style server confirmed the approved-draft tutorial-video flow in mock mode.",
+      "Browser-backed validation approved a draft, generated a tutorial script, approved the script, requested render, polled to completion, and attached the completed mock video.",
+      "Browser-backed validation confirmed the completed video player and provider setup posture for HeyGen mock mode.",
+      "Mock-mode posture was confirmed with HeyGen provider secrets absent.",
+      "README and env placeholder guidance were rechecked against the current mock-mode and Netlify posture."
     ]
   },
   "open_flags": {
@@ -86,14 +93,16 @@
       "Current Google AI product capabilities and internal tool availability",
       "The meaning and intended usage of HAPPA in the Loan Factory context",
       "MOSO and seven-day SLA definitions and approved workflow meaning",
-      "Actual rate lock, extension, rate-alert, and consent policy details"
+      "Actual rate lock, extension, rate-alert, and consent policy details",
+      "Exact HeyGen API endpoint, payload, avatar_id, voice_id, background options, and credit usage details for live mode"
     ],
     "needs_compliance_review": [
       "Borrower-facing, lead-facing, and realtor-facing templates or messages before live use",
       "Training or communication content that references loan products, rates, approvals, fees, timelines, or borrower scenarios",
       "Operational guides covering rate locks, extensions, rate alerts, AI-assisted 1003 handling, or escalation workflow guidance",
-      "AI governance and NPI guidance before it is treated as company policy"
+      "AI governance and NPI guidance before it is treated as company policy",
+      "Avatar rights, consent posture, and final tutorial-video disclosure or footer language before live use"
     ]
   },
-  "next_best_move": "Have Jeremy review the polished Monday and Thursday examples in the live studio, then tighten only the prompts, memory defaults, and helper copy that his real edit notes expose."
+  "next_best_move": "Confirm the exact live HeyGen avatar, voice, endpoint, and compliance guardrails, then run one live tutorial-video render after Jeremy approves the mock workflow."
 }

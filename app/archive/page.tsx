@@ -43,7 +43,12 @@ export default async function ArchivePage() {
                     </Link>
                   </div>
                 </div>
-                <EmailPreview subject={draft.subject} previewText={draft.previewText} body={draft.body} />
+                <EmailPreview
+                  subject={draft.subject}
+                  previewText={draft.previewText}
+                  body={draft.body}
+                  tutorialVideo={draft.tutorialVideo}
+                />
               </div>
             ))
           )}

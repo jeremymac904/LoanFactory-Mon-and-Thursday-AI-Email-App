@@ -20,15 +20,16 @@ export default async function ProvidersPage() {
           <div className="notice-card">
             <p className="label">What works now</p>
             <p className="mt-3 text-sm leading-6 text-mute">
-              The app can generate, revise, approve, attach assets, schedule, and mark items sent in
-              mock mode with no provider secrets.
+              The app can generate, revise, approve, attach assets, schedule, mark items sent, and
+              run the HeyGen tutorial workflow in mock mode with no provider secrets.
             </p>
           </div>
           <div className="notice-card">
             <p className="label">What needs secrets later</p>
             <p className="mt-3 text-sm leading-6 text-mute">
-              Live Gemini, real email sending, remote storage, external auth, and cron-backed
-              scheduling still require env wiring. The adapter boundaries are already in place.
+              Live Gemini, real email sending, remote storage, external auth, cron-backed
+              scheduling, and live HeyGen render calls still require env wiring. The adapter
+              boundaries are already in place.
             </p>
           </div>
         </div>

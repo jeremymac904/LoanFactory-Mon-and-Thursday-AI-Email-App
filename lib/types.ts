@@ -7,11 +7,52 @@ export type SourceLane =
   | "Weekly Training";
 export type DraftStatus = "draft" | "approved" | "scheduled" | "sent" | "archived";
 export type AssetKind = "image" | "video" | "link";
-export type ApprovalAction = "approved" | "rejected" | "scheduled" | "sent" | "archived";
+export type ApprovalAction =
+  | "approved"
+  | "rejected"
+  | "scheduled"
+  | "sent"
+  | "archived"
+  | "video_script_approved"
+  | "video_render_requested"
+  | "video_review_ready"
+  | "video_attached"
+  | "video_restarted"
+  | "video_failed";
 export type MemorySignalType =
   | "manual_preference"
   | "edit_instruction"
   | "approval_pattern";
+export type TutorialVideoStatus =
+  | "script_draft"
+  | "script_approved"
+  | "rendering"
+  | "review"
+  | "attached"
+  | "failed";
+export type TutorialVideoMode = "mock" | "heygen";
+
+export interface TutorialVideoWorkflow {
+  status: TutorialVideoStatus;
+  mode: TutorialVideoMode;
+  title: string;
+  script: string;
+  scriptLocked: boolean;
+  aspectRatio: "16:9" | "9:16";
+  background: string;
+  renderId?: string | null;
+  renderStatus?: "processing" | "completed" | "failed" | null;
+  pollCount: number;
+  scriptApprovedAt?: string | null;
+  requestedAt?: string | null;
+  lastPolledAt?: string | null;
+  videoUrl?: string | null;
+  thumbnailUrl?: string | null;
+  durationLabel?: string | null;
+  errorMessage?: string | null;
+  attachedAssetId?: string | null;
+  rejectionReason?: string | null;
+}
 
 export interface AssetItem {
   id: string;
@@ -43,6 +84,7 @@ export interface DraftItem {
   revisionCount: number;
   lastInstruction?: string | null;
   complianceMode: "standard" | "safe";
+  tutorialVideo?: TutorialVideoWorkflow | null;
 }
 
 export interface ScheduleItem {

@@ -131,18 +131,19 @@ export default async function DraftStudioPage() {
             </div>
             <div className="notice-card">
               <p className="label">Defaults in play</p>
-              <p className="mt-3 text-sm leading-6 text-mute">
-                Current defaults come from Jeremy&apos;s memory profile: {state.preferences.defaultSendDay} /{" "}
-                {state.preferences.defaultAudience}, {state.preferences.favoriteStructures[0]}, and a
-                short tactical voice.
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                <span className="micro-pill">mock-safe draft generation</span>
-                <span className="micro-pill">human approval required</span>
-                <span className="micro-pill">{state.memorySignals.filter((signal) => signal.active).length} active memory signals</span>
+                <p className="mt-3 text-sm leading-6 text-mute">
+                  Current defaults come from Jeremy&apos;s memory profile: {state.preferences.defaultSendDay} /{" "}
+                  {state.preferences.defaultAudience}, {state.preferences.favoriteStructures[0]}, and a
+                  short tactical voice.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="micro-pill">mock-safe draft generation</span>
+                  <span className="micro-pill">human approval required</span>
+                  <span className="micro-pill">approved drafts unlock tutorial video</span>
+                  <span className="micro-pill">{state.memorySignals.filter((signal) => signal.active).length} active memory signals</span>
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </SectionFrame>
 
@@ -166,6 +167,9 @@ export default async function DraftStudioPage() {
                 <div className="mt-3 flex flex-wrap gap-2">
                   <span className="micro-pill">{draft.aiMode} mode</span>
                   <span className="micro-pill">{draft.revisionCount} revisions</span>
+                  {draft.tutorialVideo ? (
+                    <span className="micro-pill">tutorial video: {draft.tutorialVideo.status}</span>
+                  ) : null}
                 </div>
               </div>
               <div className="flex items-center gap-3">

@@ -63,6 +63,23 @@ Built documents:
 7. `topic_banks/MONDAY_TRAINING_EMAIL_BANK.md`
 8. `topic_banks/THURSDAY_TRAINING_EMAIL_BANK.md`
 
+### 05 HeyGen Tutorial Video Workflow
+
+Status: pass 4 mock-first implementation and review docs built
+
+Built documents:
+
+1. `implementation/heygen_api_auth_setup.md`
+2. `implementation/avatar_and_voice_mapping.md`
+3. `implementation/heygen_video_generation_payload.md`
+4. `implementation/status_polling_logic.md`
+5. `implementation/error_handling_matrix.md`
+6. `implementation/app_state_and_approval_gates.md`
+7. `implementation/compliance_enforcement.md`
+8. `implementation/script_sanitization_rules.md`
+9. `ui/ui_approval_screens.md`
+10. `prompts/script_generation_prompts.md`
+
 ## Shared Assets
 
 1. `shared/standards/KNOWLEDGE_AUTHORING_STANDARD.md`
@@ -78,6 +95,8 @@ This manifest and the v1 documents were grounded in the existing repo inputs:
 2. Each lane `README.md`
 3. Each lane brief, domain map, output standards, source intake plan, gap log, and markdown build queue
 4. Weekly training and sales lane starter and refinement prompts
+5. Imported source packets under `continuity/source_packets/2026-03-23_codex_pass2/`
+6. Imported HeyGen source docs under `continuity/source_packets/2026-03-23_codex_pass4_heygen/`
 
 ## Build Boundaries
 
