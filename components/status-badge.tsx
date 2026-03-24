@@ -9,6 +9,15 @@ const classMap: Record<string, string> = {
   rejected: "bg-[#f4dedd] text-[#7c4238]"
 };
 
+const labelMap: Record<string, string> = {
+  draft: "needs review",
+  approved: "approved",
+  scheduled: "scheduled",
+  sent: "sent",
+  archived: "archived",
+  rejected: "rejected"
+};
+
 export function StatusBadge({
   status
 }: {
@@ -16,9 +25,9 @@ export function StatusBadge({
 }) {
   return (
     <span
-      className={`inline-flex rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${classMap[status]}`}
+      className={`inline-flex whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] ${classMap[status]}`}
     >
-      {status}
+      {labelMap[status]}
     </span>
   );
 }

@@ -20,7 +20,9 @@ const plexMono = IBM_Plex_Mono({
 export function AppShell({ children }: { children: ReactNode }) {
   const auth = getAuthContext();
   const providerStatuses = getProviderStatuses();
-  const readyProviders = providerStatuses.filter((status) => status.configured).length;
+  const reviewReadyProviders = providerStatuses.filter((status) =>
+    ["mock", "local", "local-admin"].includes(status.mode)
+  ).length;
 
   return (
     <div className={`${manrope.variable} ${plexMono.variable} font-[var(--font-manrope)] text-ink`}>
@@ -45,7 +47,7 @@ export function AppShell({ children }: { children: ReactNode }) {
               <p className="mt-3 text-sm font-semibold text-ink">{auth.displayName}</p>
               <p className="mt-1 text-sm text-mute">{auth.role}</p>
               <p className="mt-4 font-[var(--font-mono)] text-xs uppercase tracking-[0.2em] text-mute">
-                {readyProviders}/{providerStatuses.length} adapters ready
+                {reviewReadyProviders}/{providerStatuses.length} adapters in review-safe mode
               </p>
             </div>
           </aside>
@@ -58,18 +60,30 @@ export function AppShell({ children }: { children: ReactNode }) {
                   <h1 className="mt-2 text-3xl font-semibold tracking-tight">
                     Train better. Ship cleaner Monday and Thursday issues.
                   </h1>
+                  <p className="mt-3 max-w-2xl text-sm leading-6 text-mute">
+                    The current shell is tuned for mock-mode review first. Jeremy can generate,
+                    revise, approve, and schedule without wiring secrets, then swap providers in
+                    later.
+                  </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {providerStatuses.map((status) => (
                     <span
                       key={status.name}
                       className={`rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] ${
-                        status.configured
-                          ? "bg-[#dde8de] text-[#375443]"
-                          : "bg-[#efe3d4] text-[#6a4d33]"
+                        ["mock", "local", "local-admin"].includes(status.mode)
+                          ? "bg-[#e0e7f2] text-[#3c5270]"
+                          : status.configured
+                            ? "bg-[#dde8de] text-[#375443]"
+                            : "bg-[#efe3d4] text-[#6a4d33]"
                       }`}
                     >
-                      {status.name}: {status.mode}
+                      {status.name}:{" "}
+                      {["mock", "local", "local-admin"].includes(status.mode)
+                        ? `${status.mode} review mode`
+                        : status.configured
+                          ? `${status.mode} wired`
+                          : `${status.mode} needs setup`}
                     </span>
                   ))}
                 </div>

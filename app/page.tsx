@@ -18,11 +18,12 @@ export default async function DashboardPage() {
           <div>
             <p className="eyebrow">Operational dashboard</p>
             <h2 className="mt-3 max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-ink">
-              Two issues a week. Human approved. Ready for Jeremy to tune in real time.
+              Two issues a week. Human approved. Easy to review before anything gets scheduled.
             </h2>
             <p className="mt-4 max-w-xl text-sm leading-7 text-mute">
               The studio keeps Monday and Thursday training visible from topic bank through approval,
-              schedule, preview, and archive. Provider secrets can stay empty and the workflow still runs.
+              schedule, preview, and archive. In the current setup, Jeremy can review the full flow
+              in mock mode before wiring any live provider.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/drafts" className="primary-btn">
@@ -31,6 +32,11 @@ export default async function DashboardPage() {
               <Link href="/schedule" className="secondary-btn">
                 Review schedule queue
               </Link>
+            </div>
+            <div className="mt-5 flex flex-wrap gap-2">
+              <span className="micro-pill">Drafts stay editable</span>
+              <span className="micro-pill">Approval required before schedule</span>
+              <span className="micro-pill">Mock-safe with no secrets</span>
             </div>
           </div>
 
@@ -59,11 +65,17 @@ export default async function DashboardPage() {
         <SectionFrame
           eyebrow="Upcoming issues"
           title="Monday and Thursday queue"
-          description="These are the next scheduled issues. Nothing reaches this panel without explicit approval."
+          description="These are the next scheduled issues. Nothing reaches this panel without explicit approval, and unscheduled dates stay open until Jeremy signs off."
         >
           <div className="space-y-3">
             {upcoming.length === 0 ? (
-              <p className="text-sm text-mute">No approved issues are scheduled yet.</p>
+              <div className="notice-card">
+                <p className="text-sm font-semibold text-ink">No approved issues are scheduled yet.</p>
+                <p className="mt-2 text-sm leading-6 text-mute">
+                  Approve a draft first, then use the schedule queue for one-off or month-batch
+                  placement.
+                </p>
+              </div>
             ) : (
               upcoming.map((item) => (
                 <div
@@ -90,7 +102,7 @@ export default async function DashboardPage() {
         <SectionFrame
           eyebrow="Readiness"
           title="Provider and environment posture"
-          description="The product works in local mock mode today and stays ready for later provider wiring."
+          description="This surface shows what works now in review-safe mode and what still needs secrets before live provider use."
         >
           <div className="space-y-3">
             {providerStatuses.map((status) => (
@@ -101,11 +113,23 @@ export default async function DashboardPage() {
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="label">{status.name}</p>
-                    <p className="mt-2 text-lg font-semibold">{status.mode}</p>
+                    <p className="mt-2 text-lg font-semibold">
+                      {["mock", "local", "local-admin"].includes(status.mode)
+                        ? `${status.mode} review mode`
+                        : status.mode}
+                    </p>
                   </div>
-                  <StatusBadge status={status.configured ? "approved" : "draft"} />
+                  {["mock", "local", "local-admin"].includes(status.mode) ? (
+                    <span className="micro-pill">works now</span>
+                  ) : null}
                 </div>
                 <p className="mt-3 text-sm leading-6 text-mute">{status.note}</p>
+                {!["mock", "local", "local-admin"].includes(status.mode) && !status.configured ? (
+                  <p className="mt-2 text-xs leading-5 text-mute">
+                    Add the listed env keys on the Provider Setup page before treating this adapter
+                    as live.
+                  </p>
+                ) : null}
               </div>
             ))}
           </div>
@@ -116,11 +140,16 @@ export default async function DashboardPage() {
         <SectionFrame
           eyebrow="Approval focus"
           title="Ready for Jeremy review"
-          description="Drafts stay editable until Jeremy approves them."
+          description="Drafts stay editable until Jeremy approves them. Approval is the hard stop before anything can move into the send queue."
         >
           <div className="space-y-3">
             {approvals.length === 0 ? (
-              <p className="text-sm text-mute">No drafts are waiting for approval.</p>
+              <div className="notice-card">
+                <p className="text-sm font-semibold text-ink">No drafts are waiting for approval.</p>
+                <p className="mt-2 text-sm leading-6 text-mute">
+                  Generate a draft or reopen a rejected draft to put something back into review.
+                </p>
+              </div>
             ) : (
               approvals.map((draft) => (
                 <div
@@ -148,7 +177,7 @@ export default async function DashboardPage() {
         <SectionFrame
           eyebrow="Recent work"
           title="Latest draft activity"
-          description="Use the draft detail surface for AI revision, manual editing, and approval notes."
+          description="Use the draft detail surface for AI revision, manual editing, approval notes, and the final schedule handoff."
         >
           <div className="space-y-3">
             {recentDrafts.map((draft) => (

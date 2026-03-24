@@ -18,7 +18,7 @@ export default async function TopicsPage() {
       <SectionFrame
         eyebrow="Topic banks"
         title="Monday and Thursday issue starters"
-        description="These seeded topics come from the current knowledge layer and can generate a working draft immediately."
+        description="These seeded topics come from the current knowledge layer and can generate a working draft immediately. The used tag only means the topic has already been spun into a draft once."
       >
         <div className="grid gap-6 xl:grid-cols-2">
           {sections.map((section) => (
@@ -33,6 +33,10 @@ export default async function TopicsPage() {
                     </p>
                     <h4 className="mt-2 text-lg font-semibold">{topic.title}</h4>
                     <p className="mt-2 text-sm leading-6 text-mute">{topic.angle}</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      <span className="micro-pill">{topic.sendDay} fit</span>
+                      <span className="micro-pill">{topic.used ? "already drafted" : "ready to generate"}</span>
+                    </div>
                     <p className="mt-3 text-xs leading-5 text-mute">
                       Knowledge links: {topic.linkedKnowledgePaths.join(" · ")}
                     </p>

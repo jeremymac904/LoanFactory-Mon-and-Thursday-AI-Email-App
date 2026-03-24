@@ -1,10 +1,12 @@
 # Loan Factory AI Training Email Studio
 
-This repo now contains the first working version of a focused internal product for Jeremy:
+This repo contains the current working version of the internal Loan Factory Monday and Thursday AI training email studio.
 
-1. A Next.js internal training email studio
-2. A file-backed local data layer for drafts, approvals, scheduling, assets, and memory
-3. A focused markdown knowledge system built from the notebook starter-kit lanes
+It is built for review-first operation:
+
+1. Jeremy can generate, revise, approve, and schedule issues in mock mode with no secrets.
+2. The app keeps a hard human approval gate before anything can be scheduled or sent.
+3. Provider adapters are already in place for later Gemini, email, storage, auth, and scheduler wiring.
 
 ## Product Scope
 
@@ -62,9 +64,23 @@ Useful checks:
 1. `npm run typecheck`
 2. `npm run build`
 
+## Mock Review Mode
+
+The app works cleanly without provider secrets.
+
+Leave the defaults in `.env.example` or keep `.env.local` empty for:
+
+1. Mock AI draft generation and revision
+2. Preview and sent-log email behavior
+3. Local asset storage
+4. Jeremy local-admin auth stub
+5. Local schedule queue behavior
+
+If you want to reset the local review state back to the seeded examples, delete `data/studio.json` and restart the app.
+
 ## Environment
 
-Copy `.env.example` to `.env.local` and wire secrets only when ready.
+Copy `.env.example` to `.env.local` only when you are ready to wire live providers.
 
 If secrets are missing:
 
@@ -82,6 +98,14 @@ This repo includes:
 2. `netlify.toml`
 3. A production build that completes locally
 
+Netlify deploy posture today:
+
+1. Connect the GitHub repo in Netlify
+2. Use Node `22`
+3. Build command: `npm run build`
+4. No provider secrets are required for a mock-mode review deploy
+5. Add real env values later only when Jeremy is ready to test live providers
+
 ## Notebook Starter Kits
 
 The original notebook folders remain the upstream research and synthesis layer:
@@ -93,6 +117,7 @@ The original notebook folders remain the upstream research and synthesis layer:
 
 Use those folders to refine source-grounded material.
 Use `knowledge_system/` to store the durable markdown docs that feed the app.
+Use `continuity/source_packets/` to store raw imported packet material that should remain traceable.
 
 ## Guardrails
 

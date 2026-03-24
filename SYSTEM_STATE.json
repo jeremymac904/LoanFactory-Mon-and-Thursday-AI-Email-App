@@ -10,15 +10,15 @@
     "remote_url": "https://github.com/jeremymac904/LoanFactory-Mon-and-Thursday-AI-Email-App.git",
     "last_pushed_ref": "origin/main"
   },
-  "current_phase": "Phase 3 - PASS 2 source-grounded knowledge and product tightening",
+  "current_phase": "Phase 4 - PASS 3 review polish and deploy readiness",
   "active_contract": "Agent_Task_Contract.md",
   "knowledge_system_root": "knowledge_system",
   "current_state": {
-    "status": "pass2_source_grounded",
-    "summary": "The repo now contains imported raw source packets, packet-grounded weekly, sales, Google AI, and operations knowledge docs, plus a tightened training email studio with better prompt shaping, richer topic banks, improved seeded content, clearer attachment preview behavior, and safer month scheduling."
+    "status": "pass3_review_polished",
+    "summary": "The repo now contains a review-polished training email studio with clearer draft, approval, schedule, settings, provider, and README guidance, stronger seeded examples, mock-mode clarity with no secrets, and validated browser flow on the existing shell."
   },
   "app_status": {
-    "status": "working_shell_tightened_with_source_packets",
+    "status": "working_shell_review_polished",
     "routes": [
       "/",
       "/drafts",
@@ -43,20 +43,20 @@
   },
   "lane_status": {
     "01_google_ai_for_loan_officers": {
-      "status": "pass2_source_grounded",
+      "status": "pass2_source_grounded_with_pass3_ui_polish",
       "next_priority": "Validate the real Google AI capability surface and then tighten the prompt library from Jeremy's preferred outputs."
     },
     "02_loan_factory_and_terraplus_operations": {
-      "status": "pass2_source_grounded",
+      "status": "pass2_source_grounded_with_pass3_ui_polish",
       "next_priority": "Replace the remaining caution-level operational notes with validated internal workflow artifacts when they are available."
     },
     "03_sales_marketing_communication_and_conversion": {
-      "status": "pass2_source_grounded",
+      "status": "pass2_source_grounded_with_pass3_ui_polish",
       "next_priority": "Load approved real message examples so the sales and transparency docs can move from framework level to example-backed level."
     },
     "04_weekly_training_production_lab": {
-      "status": "pass2_source_grounded",
-      "next_priority": "Review one generated Monday issue and one generated Thursday issue with Jeremy and tune the template from actual edit patterns."
+      "status": "pass2_source_grounded_with_pass3_ui_polish",
+      "next_priority": "Review one generated Monday issue and one generated Thursday issue with Jeremy and tune the template, seed examples, and memory defaults from actual edit patterns."
     }
   },
   "shared_assets": [
@@ -68,17 +68,16 @@
     "continuity/source_packets/2026-03-23_codex_pass2/SOURCE_PACKET_IMPORT_MAP.md"
   ],
   "validation": {
-    "status": "pass2_validation_completed",
+    "status": "pass3_validation_completed",
     "notes": [
       "Raw source packet bundle was unpacked and imported into continuity/source_packets/2026-03-23_codex_pass2/.",
+      "PASS 3 polished the existing shell without rebuilding it.",
       "npm run typecheck passed.",
-      "npm run build passed.",
-      "Browser-backed validation created a Monday draft from the topic bank.",
-      "Browser-backed validation revised the new Monday draft with AI instructions.",
-      "Browser-backed validation approved the revised Monday draft.",
-      "Browser-backed validation created a Thursday draft from the topic bank.",
-      "App-form validation batch-scheduled April 2026 and produced Monday and Thursday scheduled items without date collisions.",
-      "Knowledge docs and uncertainty markers were rechecked after the packet-grounding pass."
+      "npm run build passed after clearing a corrupted generated .next build directory.",
+      "Browser-backed validation on a production-style server confirmed the dashboard, schedule queue, and provider setup copy and posture.",
+      "Browser-backed validation revised the Monday lead-reply draft with AI instructions, approved it, and moved it into the schedule queue.",
+      "Mock-mode posture was confirmed with provider-secret env keys empty.",
+      "README setup guidance was rechecked against the current mock-mode and Netlify posture."
     ]
   },
   "open_flags": {
@@ -96,5 +95,5 @@
       "AI governance and NPI guidance before it is treated as company policy"
     ]
   },
-  "next_best_move": "Review one generated Monday issue and one generated Thursday issue with Jeremy, then tune the prompt library, memory defaults, and topic banks from his actual edit and approval notes."
+  "next_best_move": "Have Jeremy review the polished Monday and Thursday examples in the live studio, then tighten only the prompts, memory defaults, and helper copy that his real edit notes expose."
 }

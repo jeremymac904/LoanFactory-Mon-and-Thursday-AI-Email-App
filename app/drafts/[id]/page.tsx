@@ -30,19 +30,64 @@ export default async function DraftDetailPage({
   }
 
   const attachments = state.assets.filter((asset) => draft.assetIds.includes(asset.id));
+  const canSchedule = draft.status === "approved";
+  const scheduleMessage =
+    draft.status === "draft"
+      ? "Approval is still required before this draft can take a date."
+      : draft.status === "approved"
+        ? "This approved draft is ready for a send date."
+        : draft.status === "scheduled"
+          ? "This draft is already in the queue. Change the date only if Jeremy wants to move it."
+          : draft.status === "sent"
+            ? "This issue has already been sent. Keep it here for reference only."
+            : "This issue is archived. Reopen the workflow elsewhere before reusing it.";
+  const scheduleButtonLabel =
+    draft.status === "approved"
+      ? "Move to schedule queue"
+      : draft.status === "scheduled"
+        ? "Already scheduled"
+        : draft.status === "sent"
+          ? "Sent issues are locked"
+          : draft.status === "archived"
+            ? "Archived issues are locked"
+            : "Approve before scheduling";
 
   return (
     <div className="space-y-6">
       <SectionFrame
         eyebrow="Draft detail"
         title={draft.subject}
-        description="AI revision, manual edit, approval, and scheduling all stay in one surface."
-        aside={<StatusBadge status={draft.status} />}
+        description="AI revision, manual edit, approval, and scheduling all stay in one surface so Jeremy can review the issue without jumping between pages."
+        aside={
+          <>
+            <StatusBadge status={draft.status} />
+            <span className="micro-pill">{draft.aiMode} mode</span>
+          </>
+        }
       >
         <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">
             <form action={saveDraftAction} className="space-y-4 rounded-[28px] border border-line bg-white p-5">
               <input type="hidden" name="draftId" value={draft.id} />
+
+              <div className="notice-card">
+                <p className="label">Review state</p>
+                <h3 className="mt-2 text-lg font-semibold">
+                  {draft.status === "draft"
+                    ? "This issue still needs Jeremy approval."
+                    : draft.status === "approved"
+                      ? "This issue is approved and ready for a send date."
+                      : draft.status === "scheduled"
+                        ? "This issue is already in the schedule queue."
+                        : draft.status === "sent"
+                          ? "This issue has already been marked sent."
+                          : "This issue is archived for reference."}
+                </h3>
+                <p className="mt-2 text-sm leading-6 text-mute">
+                  Edit the draft directly here, then use the approval and schedule controls on the
+                  right when the issue is ready to move forward.
+                </p>
+              </div>
 
               <div className="grid gap-4 lg:grid-cols-2">
                 <label className="block">
@@ -72,11 +117,13 @@ export default async function DraftDetailPage({
               <label className="block">
                 <span className="label">Source notes</span>
                 <textarea name="notes" defaultValue={draft.notes} className="text-area mt-2" />
+                <p className="field-help">Keep the source angle, guardrails, and context here. AI revision reads this field again.</p>
               </label>
 
               <label className="block">
                 <span className="label">Body</span>
                 <textarea name="body" defaultValue={draft.body} className="text-area mt-2 min-h-[320px]" />
+                <p className="field-help">Best structure for this app: The One Thing, one middle section, Review note, The 24 Hour Task.</p>
               </label>
 
               <label className="block">
@@ -85,6 +132,7 @@ export default async function DraftDetailPage({
                   <option value="safe">Safe review mode</option>
                   <option value="standard">Standard draft mode</option>
                 </select>
+                <p className="field-help">Safe mode keeps caution language more explicit for regulated or uncertain content.</p>
               </label>
 
               <div className="flex flex-wrap gap-3">
@@ -112,14 +160,20 @@ export default async function DraftDetailPage({
               <p className="label">AI edit</p>
               <h3 className="mt-2 text-xl font-semibold">Revise by instruction</h3>
               <p className="mt-2 text-sm leading-6 text-mute">
-                Example instructions: make this more direct, shorten this, sound more like a sharp
-                mortgage operator, make this safer for compliance, turn this into a Monday quick
-                win.
+                This uses the current draft, source notes, active memory, and linked knowledge. It
+                stays in mock mode if no AI secret is present.
               </p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                <span className="micro-pill">make this more direct</span>
+                <span className="micro-pill">shorten this</span>
+                <span className="micro-pill">sound more like a sharp mortgage operator</span>
+                <span className="micro-pill">make this safer for compliance</span>
+                <span className="micro-pill">turn this into a Monday quick win</span>
+              </div>
               <textarea
                 name="instruction"
                 className="text-area mt-4"
-                placeholder="Type the revision Jeremy wants."
+                placeholder="Type the exact revision Jeremy wants. Example: tighten the opener and make the 24 hour task more concrete."
                 required
               />
               <div className="mt-4 flex flex-wrap gap-3">
@@ -127,7 +181,7 @@ export default async function DraftDetailPage({
                   Revise with AI
                 </button>
                 <p className="text-sm text-mute">
-                  Last instruction: {draft.lastInstruction || "None yet"}
+                  Last instruction: {draft.lastInstruction || "No AI revision logged yet."}
                 </p>
               </div>
             </form>
@@ -161,6 +215,9 @@ export default async function DraftDetailPage({
                   {attachments.length > 0 ? attachments.map((asset) => asset.name).join(", ") : "None"}
                 </p>
                 <p>
+                  <strong className="text-ink">Next eligible send date:</strong> {getNextSendDate(draft.sendDay)}
+                </p>
+                <p>
                   <strong className="text-ink">Approval gate:</strong> Assets stay in preview mode until Jeremy
                   explicitly approves and schedules the draft.
                 </p>
@@ -170,10 +227,14 @@ export default async function DraftDetailPage({
             <form action={approveDraftAction} className="rounded-[28px] border border-line bg-white p-5">
               <input type="hidden" name="draftId" value={draft.id} />
               <p className="label">Approval gate</p>
+              <p className="mt-2 text-sm leading-6 text-mute">
+                Approval records the decision in history and unlocks scheduling. Rejected drafts stay
+                editable.
+              </p>
               <textarea
                 name="note"
                 className="text-area mt-4 min-h-[100px]"
-                placeholder="Optional approval note from Jeremy."
+                placeholder="Optional note on why this is approved or what still needs work."
               />
               <div className="mt-4 flex flex-wrap gap-3">
                 <button type="submit" className="primary-btn">
@@ -189,7 +250,8 @@ export default async function DraftDetailPage({
               <input type="hidden" name="draftId" value={draft.id} />
               <p className="label">Schedule</p>
               <p className="mt-2 text-sm leading-6 text-mute">
-                Only approved drafts can enter the schedule queue.
+                Only approved drafts can enter the schedule queue. If Jeremy wants a nonstandard
+                date, use the manual override option below.
               </p>
               <label className="mt-4 block">
                 <span className="label">Send date</span>
@@ -204,8 +266,9 @@ export default async function DraftDetailPage({
                 <input type="checkbox" name="manualOverride" defaultChecked={Boolean(draft.scheduledFor)} />
                 Manual override date
               </label>
-              <button type="submit" className="primary-btn mt-4" disabled={draft.status !== "approved"}>
-                {draft.status === "approved" ? "Move to schedule queue" : "Approve before scheduling"}
+              <p className="mt-3 text-sm leading-6 text-mute">{scheduleMessage}</p>
+              <button type="submit" className="primary-btn mt-4" disabled={!canSchedule}>
+                {scheduleButtonLabel}
               </button>
             </form>
           </div>

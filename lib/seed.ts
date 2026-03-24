@@ -36,7 +36,13 @@ export function createSeedState(): StudioState {
         "Review note",
         "The 24 Hour Task"
       ],
-      phrasesToUse: ["quick win", "operator move", "keep it clean", "what to do in the next 24 hours"],
+      phrasesToUse: [
+        "quick win",
+        "operator move",
+        "keep it clean",
+        "one next step",
+        "what to do in the next 24 hours"
+      ],
       phrasesToAvoid: ["game changer", "revolutionary", "just checking in", "circle back"],
       compliancePreference:
         "Keep review notes explicit. Any rates, approvals, fees, product guidance, borrower specifics, or policy claims stay in human review.",
@@ -195,29 +201,29 @@ export function createSeedState(): StudioState {
       },
       {
         id: "draft-monday-2",
-        title: "Monday quick win: follow-up that earns the reply",
-        subject: "Monday AI Quick Win: Fix the follow-up that sounds generic",
-        previewText: "A better first follow-up earns the reply because it sounds relevant, not automated.",
+        title: "Monday quick win: the 5-minute lead reply",
+        subject: "Monday AI Quick Win: Fix the first lead reply before it feels generic",
+        previewText: "A better first lead reply earns the response because it sounds relevant, not automated.",
         body: [
           "The One Thing:",
-          "The first follow-up should sound like you paid attention, not like a generic automation fired.",
+          "The first lead reply should prove you understood the situation, not sound like a generic automation fired.",
           "",
           "Script Lab:",
-          "1. Name the current context in plain language.",
+          "1. Name the current situation in plain language.",
           "2. Offer one next step only.",
-          "3. Ask one light question that earns a reply.",
+          "3. Ask one light question that earns the reply without adding pressure.",
           "",
           "Review note:",
           "Any borrower-facing copy still needs compliance review before live use.",
           "",
           "The 24 Hour Task:",
-          "Rewrite one stale follow-up today and remove every line that sounds like 'just checking in.'"
+          "Rewrite one stale lead reply today and remove every line that sounds like 'just checking in.'"
         ].join("\n"),
         sendDay: "Monday",
         audience: "Team",
         sourceLane: "Sales and Marketing",
-        topic: "Reply-earning lead follow-up",
-        notes: "Use the 5-minute response mindset and keep the tone like a sharp mortgage operator.",
+        topic: "Reply-earning first lead reply",
+        notes: "Use the 5-minute response mindset, make the next step obvious, and keep the tone like a sharp mortgage operator.",
         assetIds: [],
         status: "draft",
         createdAt: now,
@@ -305,14 +311,14 @@ export function createSeedState(): StudioState {
       {
         id: "draft-thursday-3",
         title: "Thursday field move: borrower consent before rate lock",
-        subject: "Thursday Field Move: Confirm consent before the lock",
-        previewText: "Do not let a rate lock become a silent assumption. Make the consent checkpoint explicit and reviewable.",
+        subject: "Thursday Field Move: Confirm borrower consent before the lock step",
+        previewText: "Do not let a rate lock become a silent assumption. Make the borrower consent checkpoint explicit and reviewable.",
         body: [
           "The One Thing:",
           "The lock step needs a clear borrower consent checkpoint before anyone treats it like a done deal.",
           "",
           "Field Move:",
-          "1. Confirm who owns the consent checkpoint.",
+          "1. Confirm who owns the consent checkpoint before the day gets rushed.",
           "2. Record the borrower confirmation in the file notes.",
           "3. Escalate exceptions before the deadline gets tight.",
           "",
@@ -409,9 +415,9 @@ export function createSeedState(): StudioState {
       {
         id: "topic-2",
         sendDay: "Monday",
-        title: "Lead follow-up that earns the reply",
+        title: "The 5-minute lead reply that earns the response",
         sourceLane: "Sales and Marketing",
-        angle: "Replace generic follow-up with one relevant next step and one light question.",
+        angle: "Replace generic follow-up with one relevant next step and one light question that sounds human.",
         suggestedAudience: "Team",
         linkedKnowledgePaths: [
           "knowledge_system/03_sales_marketing_communication_and_conversion/communication_frameworks/LEAD_CONVERSION_FRAMEWORKS.md",
@@ -491,7 +497,7 @@ export function createSeedState(): StudioState {
         sendDay: "Thursday",
         title: "Transparency updates when the file slows down",
         sourceLane: "Sales and Marketing",
-        angle: "Say what is known, what is pending, and what happens next.",
+        angle: "Say what is known, what is pending, and what happens next without slipping into vague filler.",
         suggestedAudience: "Company",
         linkedKnowledgePaths: [
           "knowledge_system/03_sales_marketing_communication_and_conversion/playbooks/THE_TRANSPARENCY_PLAYBOOK.md",

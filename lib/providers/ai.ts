@@ -278,10 +278,20 @@ function applyInstructionHeuristics(content: DraftContent, instruction: string):
     previewText = previewText.replace(/^Show /, "Use ").replace(/^Make /, "Keep ");
   }
 
+  if (lower.includes("clearer") || lower.includes("more clear")) {
+    previewText = previewText.replace("because", "so").replace("before the day gets noisy", "before the day drifts");
+  }
+
   if (lower.includes("sharp mortgage operator")) {
     title = title.replace(/^Monday quick win/i, "Operator move");
     previewText = `Operator angle: ${previewText}`.slice(0, 160);
     body = body.replace("Team version note:", "Operator note:");
+  }
+
+  if (lower.includes("tactical") || lower.includes("more useful")) {
+    body = normalizeBodySpacing(
+      body.replace("Review note:", "Use this move:\n1. Apply it once on a live file or lead today.\n\nReview note:")
+    );
   }
 
   if (lower.includes("safer") || lower.includes("compliance")) {

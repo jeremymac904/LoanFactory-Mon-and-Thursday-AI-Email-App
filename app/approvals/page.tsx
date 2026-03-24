@@ -11,17 +11,42 @@ export default async function ApprovalsPage() {
   const { state } = await getStudioSnapshot();
   const pending = state.drafts.filter((draft) => draft.status === "draft");
   const history = [...state.approvals].sort((left, right) => right.createdAt.localeCompare(left.createdAt));
+  const approvedCount = state.drafts.filter((draft) => draft.status === "approved").length;
+  const historyWithDrafts = history.map((event) => ({
+    ...event,
+    draft: state.drafts.find((draft) => draft.id === event.draftId)
+  }));
 
   return (
     <div className="space-y-6">
       <SectionFrame
         eyebrow="Approval flow"
         title="Nothing schedules or sends without explicit approval"
-        description="Rejected drafts stay editable. Approval events create a transparent history and feed the memory layer."
+        description="Rejected drafts stay editable. Approval events create a visible history and are part of the memory trail Jeremy can inspect."
       >
+        <div className="mb-6 grid gap-3 sm:grid-cols-3">
+          <div className="soft-stat">
+            <p className="label">Needs review</p>
+            <p className="mt-3 text-3xl font-semibold text-ink">{pending.length}</p>
+          </div>
+          <div className="soft-stat">
+            <p className="label">Approved and unscheduled</p>
+            <p className="mt-3 text-3xl font-semibold text-ink">{approvedCount}</p>
+          </div>
+          <div className="soft-stat">
+            <p className="label">History events</p>
+            <p className="mt-3 text-3xl font-semibold text-ink">{history.length}</p>
+          </div>
+        </div>
         <div className="space-y-3">
           {pending.length === 0 ? (
-            <p className="text-sm text-mute">There are no drafts waiting for Jeremy review.</p>
+            <div className="notice-card">
+              <p className="text-sm font-semibold text-ink">There are no drafts waiting for Jeremy review.</p>
+              <p className="mt-2 text-sm leading-6 text-mute">
+                Generate a new draft or reject an approved draft back into revision if Jeremy wants
+                another pass.
+              </p>
+            </div>
           ) : (
             pending.map((draft) => (
               <div
@@ -50,15 +75,20 @@ export default async function ApprovalsPage() {
       <SectionFrame
         eyebrow="Approval history"
         title="Recent approval events"
-        description="This log stays simple on purpose: who approved, what changed, and when the draft moved state."
+        description="This log stays simple on purpose: what moved, how it moved, and the note Jeremy left behind."
       >
         <div className="space-y-3">
-          {history.map((event) => (
+          {historyWithDrafts.map((event) => (
             <div key={event.id} className="rounded-[28px] border border-line bg-white px-5 py-4">
               <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
                 <div>
                   <p className="label">{formatDateTimeLabel(event.createdAt)}</p>
-                  <h3 className="mt-2 text-lg font-semibold">{event.note}</h3>
+                  <h3 className="mt-2 text-lg font-semibold">
+                    {event.draft?.subject || "Draft record unavailable"}
+                  </h3>
+                  <p className="mt-2 text-sm leading-6 text-mute">
+                    {event.note || "No note recorded."}
+                  </p>
                 </div>
                 <StatusBadge status={event.action === "rejected" ? "rejected" : event.action} />
               </div>

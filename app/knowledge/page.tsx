@@ -24,8 +24,15 @@ export default async function KnowledgePage() {
       <SectionFrame
         eyebrow="Knowledge sources"
         title="The product's grounded source layer"
-        description="This view exposes the current markdown system that feeds prompts, training structure, topic banks, and future portal work."
+        description="This view exposes the current markdown system that feeds prompts, training structure, topic banks, and review-safe draft generation."
       >
+        <div className="mb-6 notice-card">
+          <p className="text-sm leading-6 text-mute">
+            This lane is for durable markdown inputs, not approved company policy. Files marked for
+            factual or compliance review should be treated as source material until Jeremy or the
+            right reviewer clears them.
+          </p>
+        </div>
         <div className="grid gap-6">
           {Object.entries(grouped).map(([lane, laneDocs]) => (
             <div key={lane} className="rounded-[28px] border border-line bg-white px-5 py-5">

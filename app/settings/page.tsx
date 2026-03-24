@@ -10,14 +10,33 @@ export const dynamic = "force-dynamic";
 
 export default async function SettingsPage() {
   const { state } = await getStudioSnapshot();
+  const activeSignals = state.memorySignals.filter((signal) => signal.active).length;
 
   return (
     <div className="space-y-6">
       <SectionFrame
         eyebrow="Settings and memory"
         title="Jeremy's editable preference profile"
-        description="Nothing about memory is hidden. Approved patterns and edit instructions are stored as visible, editable signals."
+        description="Nothing about memory is hidden. Approved patterns and edit instructions are stored as visible, editable signals Jeremy can review and adjust."
       >
+        <div className="mb-6 grid gap-3 lg:grid-cols-[1.1fr_0.9fr]">
+          <div className="notice-card">
+            <p className="label">How memory works here</p>
+            <p className="mt-3 text-sm leading-6 text-mute">
+              This product does not do hidden learning. Draft generation reads this page, active
+              memory signals, and Jeremy&apos;s visible edit history. If a preference should stop shaping
+              future drafts, deactivate or rewrite it here.
+            </p>
+          </div>
+          <div className="notice-card">
+            <p className="label">Current memory posture</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="micro-pill">{activeSignals} active signals</span>
+              <span className="micro-pill">{state.preferences.defaultSendDay} default send day</span>
+              <span className="micro-pill">{state.preferences.defaultAudience} default audience</span>
+            </div>
+          </div>
+        </div>
         <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
           <form action={savePreferencesAction} className="space-y-4 rounded-[28px] border border-line bg-white p-5">
             <label className="block">
@@ -27,6 +46,7 @@ export default async function SettingsPage() {
                 defaultValue={state.preferences.tonePreference}
                 className="text-area mt-2"
               />
+              <p className="field-help">Describe the voice Jeremy wants the studio to default to when drafting cold.</p>
             </label>
             <label className="block">
               <span className="label">Length preference</span>
@@ -35,6 +55,7 @@ export default async function SettingsPage() {
                 defaultValue={state.preferences.lengthPreference}
                 className="text-area mt-2"
               />
+              <p className="field-help">Keep this practical. The AI uses this to decide how much to cut before Jeremy reviews.</p>
             </label>
             <label className="block">
               <span className="label">Subject line preference</span>
@@ -43,6 +64,7 @@ export default async function SettingsPage() {
                 defaultValue={state.preferences.subjectLinePreference}
                 className="text-input mt-2"
               />
+              <p className="field-help">Use one sentence that tells the model how Jeremy likes the email framed in the inbox.</p>
             </label>
             <label className="block">
               <span className="label">Favorite structures (one per line)</span>
@@ -51,6 +73,7 @@ export default async function SettingsPage() {
                 defaultValue={state.preferences.favoriteStructures.join("\n")}
                 className="text-area mt-2"
               />
+              <p className="field-help">These are the structure patterns the generator and AI edits should prefer first.</p>
             </label>
             <label className="block">
               <span className="label">Phrases to use (one per line)</span>
@@ -59,6 +82,7 @@ export default async function SettingsPage() {
                 defaultValue={state.preferences.phrasesToUse.join("\n")}
                 className="text-area mt-2"
               />
+              <p className="field-help">Use short phrases Jeremy wants repeated across strong drafts.</p>
             </label>
             <label className="block">
               <span className="label">Phrases to avoid (one per line)</span>
@@ -67,6 +91,7 @@ export default async function SettingsPage() {
                 defaultValue={state.preferences.phrasesToAvoid.join("\n")}
                 className="text-area mt-2"
               />
+              <p className="field-help">Use this to suppress weak filler, generic sales language, or phrases Jeremy dislikes.</p>
             </label>
             <label className="block">
               <span className="label">Compliance preference</span>
@@ -75,6 +100,7 @@ export default async function SettingsPage() {
                 defaultValue={state.preferences.compliancePreference}
                 className="text-area mt-2"
               />
+              <p className="field-help">This becomes part of the prompt guardrail. Keep it descriptive, not aspirational.</p>
             </label>
             <div className="grid gap-4 lg:grid-cols-2">
               <label className="block">
@@ -108,6 +134,10 @@ export default async function SettingsPage() {
           <div className="space-y-6">
             <form action={addMemoryNoteAction} className="rounded-[28px] border border-line bg-white p-5">
               <p className="label">Manual memory note</p>
+              <p className="mt-2 text-sm leading-6 text-mute">
+                Use this when Jeremy wants to preserve a preference that does not fit neatly into the
+                main profile fields.
+              </p>
               <label className="mt-4 block">
                 <span className="label">Label</span>
                 <input name="label" className="text-input mt-2" placeholder="Example: Avoid soft openers" />
@@ -127,6 +157,9 @@ export default async function SettingsPage() {
 
             <div className="rounded-[28px] border border-line bg-white p-5">
               <p className="label">Active memory signals</p>
+              <p className="mt-2 text-sm leading-6 text-mute">
+                Active signals shape future drafts. Inactive signals stay visible but stop influencing generation.
+              </p>
               <div className="mt-4 space-y-3">
                 {state.memorySignals.map((signal) => (
                   <div key={signal.id} className="rounded-[24px] border border-line bg-canvas/60 px-4 py-4">
