@@ -2,72 +2,57 @@
 
 ## Purpose
 
-Capture first pass borrower communication rules that make messages clearer, more human, and easier to act on.
+Support internal training issues that teach clearer, safer borrower communication.
 
 ## Source Basis
 
-1. `03_sales_marketing_communication_and_conversion/01_NOTEBOOK_BRIEF.md`
-2. `03_sales_marketing_communication_and_conversion/04_DOMAIN_MAP.md`
-3. `03_sales_marketing_communication_and_conversion/07_NOTEBOOKLM_STARTER_PROMPT.md`
-4. `03_sales_marketing_communication_and_conversion/08_NOTEBOOKLM_REFINEMENT_PROMPTS.md`
+1. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/02_sales_marketing_communication_and_conversion/SOURCE_PACKET_2_SALES_MARKETING_COMMUNICATION_AND_CONVERSION.md`
+2. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/05_operator_notes/NORMALIZED_OPERATOR_NOTES_FOR_CODEX.md`
 
 ## Current Status
 
-First pass framework built from repo direction, not from a reviewed set of live borrower messages.
+PASS 2 working framework for internal training and draft generation.
+
+## Core Communication Moves
+
+1. Reduce anxiety before trying to persuade.
+2. Translate complexity into plain language.
+3. Ask diagnostic questions before recommending the next step.
+4. Show the math of the decision only when the numbers are validated.
+
+## Weak Patterns
+
+1. Too much jargon
+2. Talking more than listening
+3. Leading with rate talk only
+4. Promising clarity before the facts are confirmed
+
+## Strong Patterns
+
+1. `Here is what we know right now.`
+2. `Here is what is still pending.`
+3. `Here is the next thing we need from you or from us.`
+4. `Here is what we should not assume yet.`
+
+## Safe AI Assist Uses
+
+1. Rewrite a dense update into plain language
+2. Draft a first-pass checklist follow-up
+3. Turn internal notes into a cleaner borrower update draft for human review
+
+## Training Email Angles
+
+1. Plain-language translation quick win
+2. Better borrower update structure
+3. Diagnostic question script lab
+4. Safer update language when the file slows down
 
 ## Needs Factual Validation
 
-1. Which borrower message formats currently perform best in this business
-2. Which company approved language already exists and should override generic phrasing
+1. Real approved borrower message examples from the Loan Factory environment
+2. Any company-specific phrasing Jeremy wants treated as standard
 
 ## Needs Compliance Review
 
-1. All live borrower facing copy before use
-2. Any mention of approvals, rates, products, fees, conditions, or closing timelines
-
-## Core Principles
-
-1. Start with the borrower question or concern, not internal process jargon
-2. State the next step clearly
-3. Separate confirmed facts from pending items
-4. Keep the message short enough to act on in one read
-5. Tell the borrower what you need, by when, and why it matters
-
-## Common Borrower Use Cases
-
-1. Initial response after inquiry
-2. Document request
-3. Status update
-4. Delay or issue explanation
-5. Education message that explains a step in plain English
-
-## Trust Building Language Moves
-
-1. Name the exact next step
-2. Say what is known and what is still pending
-3. Give one reason for the request or update
-4. Replace vague urgency with a real timeline when one is verified
-5. Keep the tone calm and confident
-
-## Weak Patterns To Avoid
-
-1. Long paragraphs with multiple asks
-2. Generic reassurance with no next step
-3. Process language the borrower is unlikely to understand
-4. Promises that have not been verified
-5. Overuse of exclamation points or scripted enthusiasm
-
-## Message Shape
-
-1. Acknowledge the current moment
-2. State the needed action or update
-3. Explain why it matters
-4. Close with the next step
-
-## Review Gate
-
-Before a borrower message is reused as a template, confirm:
-
-1. The language does not overstate certainty
-2. The action request is specific
-3. Any regulated or product sensitive language has been reviewed
+1. Any live borrower-facing copy
+2. Any borrower communication that references rates, approvals, fees, product fit, or timelines

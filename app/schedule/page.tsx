@@ -10,20 +10,22 @@ export default async function SchedulePage() {
   const { state } = await getStudioSnapshot();
   const approved = state.drafts.filter((draft) => draft.status === "approved");
   const queue = [...state.schedule].sort((left, right) => left.scheduledFor.localeCompare(right.scheduledFor));
+  const mondayApproved = approved.filter((draft) => draft.sendDay === "Monday").length;
+  const thursdayApproved = approved.filter((draft) => draft.sendDay === "Thursday").length;
 
   return (
     <div className="space-y-6">
       <SectionFrame
         eyebrow="Schedule queue"
         title="Assign approved drafts to Monday and Thursday slots"
-        description="Single scheduling happens from draft detail. Batch scheduling uses the current pool of approved drafts."
+        description="Single scheduling happens from draft detail. Batch scheduling fills the next open Monday and Thursday dates without double-booking a slot."
       >
         <div className="grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
           <form action={batchScheduleAction} className="rounded-[28px] border border-line bg-white p-5">
             <p className="label">Batch scheduling</p>
             <h3 className="mt-2 text-xl font-semibold">Queue a full month</h3>
             <p className="mt-2 text-sm leading-6 text-mute">
-              This assigns the next approved Monday and Thursday drafts to available dates in the month selected below.
+              This assigns the next approved Monday and Thursday drafts to open dates in the month selected below.
             </p>
             <label className="mt-4 block">
               <span className="label">Month</span>
@@ -37,7 +39,10 @@ export default async function SchedulePage() {
             <button type="submit" className="primary-btn mt-4">
               Batch schedule approved drafts
             </button>
-            <p className="mt-4 text-sm text-mute">{approved.length} approved drafts are available right now.</p>
+            <p className="mt-4 text-sm text-mute">
+              {approved.length} approved drafts are available right now: {mondayApproved} Monday and{" "}
+              {thursdayApproved} Thursday.
+            </p>
           </form>
 
           <div className="rounded-[28px] border border-line bg-white p-5">

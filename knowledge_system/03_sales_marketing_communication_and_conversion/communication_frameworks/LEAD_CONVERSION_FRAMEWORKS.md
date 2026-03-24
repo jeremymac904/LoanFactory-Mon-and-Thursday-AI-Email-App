@@ -2,72 +2,57 @@
 
 ## Purpose
 
-Capture first pass lead conversion patterns that can later be refined with real examples and performance feedback.
+Support internal training issues that help loan officers respond faster and convert more leads without sounding robotic.
 
 ## Source Basis
 
-1. `03_sales_marketing_communication_and_conversion/01_NOTEBOOK_BRIEF.md`
-2. `03_sales_marketing_communication_and_conversion/04_DOMAIN_MAP.md`
-3. `03_sales_marketing_communication_and_conversion/07_NOTEBOOKLM_STARTER_PROMPT.md`
-4. `03_sales_marketing_communication_and_conversion/08_NOTEBOOKLM_REFINEMENT_PROMPTS.md`
+1. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/02_sales_marketing_communication_and_conversion/SOURCE_PACKET_2_SALES_MARKETING_COMMUNICATION_AND_CONVERSION.md`
+2. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/04_google_ai_for_loan_officers/SOURCE_PACKET_4_GOOGLE_AI_FOR_LOAN_OFFICERS.md`
 
 ## Current Status
 
-First pass framework built from repo direction, not from validated funnel metrics.
-
-## Needs Factual Validation
-
-1. Channel specific response patterns for this audience
-2. Which lead sources and message timings currently perform best
-3. Which approved offers or value propositions should anchor the real sequence
-
-## Needs Compliance Review
-
-1. Any lead message used externally
-2. Any message that implies eligibility, approval, savings, timelines, or product fit
+PASS 2 working framework for topic banks, prompt shaping, and seeded sales drafts.
 
 ## Core Conversion Principles
 
-1. Speed matters, but relevance matters more than speed alone
-2. Lead messages should offer one clear reason to reply
-3. Keep the first ask light and low friction
-4. Use a sequence, not a single message
-5. Build trust before pushing for commitment
+1. Speed matters: the five-minute response mindset is still the standard.
+2. Personalization matters: reference the actual context instead of a generic opener.
+3. Persistence matters: do not quit after one or two attempts.
+4. One clear next step beats three mixed calls to action.
 
-## Lead Stages
+## First Contact Structure
 
-1. New lead
-2. Warm but inactive lead
-3. Reengagement lead
-4. Referral introduction lead
+1. Acknowledge the inquiry or context
+2. Offer one useful next step
+3. Ask one light question
+4. Keep the tone confident and plain
 
-## Recommended Message Pattern
+## Follow-Up Patterns Worth Training
 
-1. Short context line
-2. Reason the message is relevant
-3. One simple question or next step
-4. Light close
+1. First reply that sounds human
+2. Voicemail plus text pairing
+3. Personalized video or text hooks
+4. Same-day follow-up that does not read like automation
 
-## What Typically Improves Replies
+## Safe AI Assist Uses
 
-1. Clear personalization based on the lead context
-2. One question instead of three
-3. Value before pressure
-4. A human tone instead of a corporate script
-5. Consistent but not noisy follow up
+1. Rewrite a stale follow-up
+2. Draft variations for different lead contexts
+3. Generate angle options for a short video or text opener
 
-## Weak Patterns To Avoid
+## Training Email Angles
 
-1. Immediate heavy calls to action
-2. Multi paragraph first touch messages
-3. Vague promises with no proof
-4. Repeated checking in messages with no value
-5. Follow up that ignores prior context
+1. Fix the follow-up that sounds generic
+2. Five-minute response habits
+3. Ghosted lead reactivation
+4. Personalized video or text opener breakdown
 
-## Review Gate
+## Needs Factual Validation
 
-Before turning a conversion message into a reusable asset, confirm:
+1. Real lead response timing data and top-performing examples
+2. Which follow-up sequences Jeremy wants treated as the internal default
 
-1. It matches the intended stage
-2. The value proposition is real and supportable
-3. Sensitive claims are reviewed
+## Needs Compliance Review
+
+1. Any live lead-facing copy
+2. Any lead communication that references rates, approvals, fees, product fit, or savings

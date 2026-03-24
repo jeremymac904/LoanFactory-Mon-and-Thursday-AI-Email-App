@@ -134,7 +134,12 @@ export default async function DraftDetailPage({
           </div>
 
           <div className="space-y-6">
-            <EmailPreview subject={draft.subject} previewText={draft.previewText} body={draft.body} />
+            <EmailPreview
+              subject={draft.subject}
+              previewText={draft.previewText}
+              body={draft.body}
+              attachments={attachments}
+            />
 
             <div className="rounded-[28px] border border-line bg-white p-5">
               <p className="label">Metadata</p>
@@ -154,6 +159,10 @@ export default async function DraftDetailPage({
                 <p>
                   <strong className="text-ink">Attachments:</strong>{" "}
                   {attachments.length > 0 ? attachments.map((asset) => asset.name).join(", ") : "None"}
+                </p>
+                <p>
+                  <strong className="text-ink">Approval gate:</strong> Assets stay in preview mode until Jeremy
+                  explicitly approves and schedules the draft.
                 </p>
               </div>
             </div>

@@ -2,60 +2,50 @@
 
 ## Purpose
 
-Define how the weekly training issue should read when it is distributed company wide.
+Define the PASS 2 style rules for the company version of Monday and Thursday training emails.
 
 ## Source Basis
 
-1. `04_weekly_training_production_lab/01_NOTEBOOK_BRIEF.md`
-2. `04_weekly_training_production_lab/04_DOMAIN_MAP.md`
-3. `04_weekly_training_production_lab/07_NOTEBOOKLM_STARTER_PROMPT.md`
-4. `04_weekly_training_production_lab/09_MARKDOWN_BUILD_QUEUE.md`
+1. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/01_weekly_training_production_lab/SOURCE_PACKET_1_WEEKLY_TRAINING_PRODUCTION_LAB.md`
+2. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/05_operator_notes/NORMALIZED_OPERATOR_NOTES_FOR_CODEX.md`
 
 ## Current Status
 
-First pass style guide built from the stated need for a company level variant.
+PASS 2 working guidance used by company-safe drafts and broad distribution topics.
+
+## Tone Rules
+
+1. Sound authoritative but readable.
+2. Standardize the lesson so it travels across teams without local shorthand.
+3. Keep the issue strategic enough to matter, but practical enough to use immediately.
+4. Write like a source-of-truth note, not a corporate memo.
+
+## Good Fit Topic Categories
+
+1. Platform and AI workflow use
+2. Process improvement and workflow hygiene
+3. Communication training that can travel across teams
+4. Compliance or governance reminders only after review
+
+## Avoid
+
+1. Fluffy corporate language
+2. Walls of text
+3. Hyper-local chatter that only one team understands
+4. Unsupported claims about products, fees, lender count, or company capabilities
+
+## Structure Guidance
+
+1. Use the same core template as team issues
+2. Prefer `Workflow Drop` or `Field Move` over highly local script coaching
+3. Keep the `Review note` plain and explicit when certainty is weak
+4. Remove any local exception that would confuse a company-wide reader
 
 ## Needs Factual Validation
 
-1. Which workflow assumptions are truly company wide
-2. Which references to tools, approvals, or process steps are safe across all teams
+1. Which company-wide tone Jeremy prefers for broad training sends
+2. Whether any current company distribution rules should tighten this style guide further
 
 ## Needs Compliance Review
 
-1. Company wide issues that include product guidance, borrower scenarios, or live marketing language
-
-## Tone
-
-1. Clear
-2. Neutral
-3. Practical
-4. Broadly reusable
-
-## What To Emphasize
-
-1. Principles and actions that travel across teams
-2. Plain English over local shorthand
-3. Reusable examples rather than team specific exceptions
-4. Short explanations of why the lesson matters
-
-## What To Avoid
-
-1. Team names or local manager language
-2. Tool steps that only apply to one workflow branch
-3. Claims that sound like official policy unless verified
-4. Jargon without explanation
-
-## Recommended Section Shifts
-
-1. Use a slightly broader opener that explains the company level relevance
-2. Keep examples generalized unless a real approved example is available
-3. Use neutral next steps that any reader can apply
-4. Link to deeper local guidance instead of embedding it
-
-## Review Gate
-
-Before send, confirm:
-
-1. The guidance is useful beyond one team
-2. The language does not overstate company policy
-3. The issue can stand alone without local context
+1. Any company variant that includes policy, product, rate, approval, or borrower-specific guidance

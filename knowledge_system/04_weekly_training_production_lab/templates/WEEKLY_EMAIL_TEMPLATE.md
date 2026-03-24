@@ -2,91 +2,85 @@
 
 ## Purpose
 
-Provide the default structure for a short, tactical weekly internal training issue.
+Provide the working PASS 2 structure for Monday and Thursday Loan Factory internal AI training emails.
 
 ## Source Basis
 
-1. `04_weekly_training_production_lab/01_NOTEBOOK_BRIEF.md`
-2. `04_weekly_training_production_lab/04_DOMAIN_MAP.md`
-3. `04_weekly_training_production_lab/05_OUTPUT_STANDARDS.md`
-4. `04_weekly_training_production_lab/07_NOTEBOOKLM_STARTER_PROMPT.md`
-5. `04_weekly_training_production_lab/08_NOTEBOOKLM_REFINEMENT_PROMPTS.md`
-6. `04_weekly_training_production_lab/09_MARKDOWN_BUILD_QUEUE.md`
+1. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/01_weekly_training_production_lab/SOURCE_PACKET_1_WEEKLY_TRAINING_PRODUCTION_LAB.md`
+2. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/05_operator_notes/NORMALIZED_OPERATOR_NOTES_FOR_CODEX.md`
 
 ## Current Status
 
-First pass operating template built before real transcript and performance examples have been normalized into this lane.
+PASS 2 working template used by the product shell, topic banks, seeded drafts, and human review flow.
 
-## Needs Factual Validation
+## Core Rules
 
-1. Best subject line conventions for the real send environment
-2. Exact send cadence, ownership, and approval workflow
-3. Whether portal and video repurposing should be created in the same weekly cycle or a follow on cycle
+1. Every issue follows the STU model: short, tactical, useful.
+2. One issue equals one lesson only.
+3. The reader should be able to finish the issue in under three minutes.
+4. Required sections are `Subject`, `The One Thing`, and `The 24 Hour Task`.
+5. One middle section is allowed when it helps execution:
+   `Script Lab`, `Workflow Drop`, `Repurposing Move`, `Quick Checklist`, or `Video Demo Callout`.
+6. Topic selection, tone shaping, and final approval stay human owned.
 
-## Needs Compliance Review
+## Monday Pattern
 
-1. Any issue that references loan products, rate movements, approvals, underwriting conditions, or borrower specific guidance
+1. Lead with an AI quick win, communication move, or workflow acceleration.
+2. Use `Script Lab` or `Workflow Drop` as the middle section.
+3. End with one task the loan officer can do before the day ends.
+
+## Thursday Pattern
+
+1. Lead with a field move, workflow clean-up, or issue-prevention play.
+2. Use `Field Move`, `Workflow Drop`, or `Repurposing Move` as the middle section.
+3. End with one task that closes the week cleaner than it started.
 
 ## Required Inputs
 
-1. One primary source for the weekly lesson
-2. Clear target audience: team or company
-3. One practical action the reader can take this week
-4. Review owner
-
-## Default Structure
-
-1. Subject line
-2. One sentence opening context
-3. Core training lesson
-4. Three to five practical actions
-5. One example or scenario
-6. One repurposing note or linked resource
-7. One clear next step
-
-## Recommended Length
-
-1. Subject line: 6 to 10 words
-2. Opening context: 1 to 2 sentences
-3. Core lesson: 1 short section
-4. Practical actions: 3 to 5 bullets
-5. Example or scenario: 3 to 6 lines
-6. Next step: 1 short sentence
+1. One primary source for the lesson
+2. Clear audience: `Team` or `Company`
+3. One practical move the reader can use inside the next 24 hours
+4. Review owner and compliance check if needed
 
 ## Template
 
 ```text
-Subject: [Short benefit-driven weekly training title]
+Subject: [Tactical outcome] + [angle]
 
-[Audience opener that says why this issue matters now.]
+The One Thing:
+[One useful idea stated in plain English.]
 
-This week's core lesson:
-[One short paragraph explaining the main idea in plain English.]
-
-What to do this week:
+Script Lab or Workflow Drop:
 1. [Action one]
 2. [Action two]
 3. [Action three]
 
-Example:
-[Short scenario, transcript excerpt summary, or applied example.]
+Review note:
+[State what still needs factual validation or compliance review.]
 
-Use this if helpful:
-[Link, attached doc, portal card, prompt, or checklist.]
-
-Next step:
-[Single action the reader can take immediately.]
+The 24 Hour Task:
+[One action the reader can take right away.]
 ```
 
-## Quality Checks Before Send
+## Human Review Checks
 
 1. One lesson only, not multiple mixed lessons
 2. Every action is specific enough to use this week
-3. Language is short and direct
-4. Audience is clearly team level or company level
-5. Any sensitive claim has been reviewed
+3. The issue sounds like a sharp operator brief, not a newsletter
+4. The review note is explicit when certainty is weak
+5. Any sensitive claim has been reviewed before approval
 
 ## Variant Guidance
 
-1. Use the team style guide when the lesson depends on team workflow context
-2. Use the company style guide when the lesson must travel across multiple teams without local assumptions
+1. Use the team style guide when the lesson depends on local workflow friction, peer examples, or team-specific follow-up.
+2. Use the company style guide when the lesson must travel cleanly across multiple teams without local assumptions.
+
+## Needs Factual Validation
+
+1. Which subject line patterns perform best in the real send environment
+2. Exact approval owners and publishing sequence beyond Jeremy's current approval role
+3. Whether portal card and video repurposing should happen in the same cycle or a follow-on cycle
+
+## Needs Compliance Review
+
+1. Any issue that references loan products, rate movements, approvals, underwriting conditions, or borrower-specific guidance

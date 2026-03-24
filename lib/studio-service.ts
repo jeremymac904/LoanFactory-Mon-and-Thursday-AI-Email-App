@@ -1,5 +1,9 @@
 import { getSendDatesForMonth, getNextSendDate } from "@/lib/date-utils";
-import { getKnowledgeHighlightsForLane, listKnowledgeDocs } from "@/lib/knowledge";
+import {
+  getKnowledgeHighlightsForLane,
+  getKnowledgeHighlightsForPaths,
+  listKnowledgeDocs
+} from "@/lib/knowledge";
 import { generateDraft, reviseDraft } from "@/lib/providers/ai";
 import { getAuthContext } from "@/lib/providers/auth";
 import { sendEmailDraft } from "@/lib/providers/email";
@@ -125,10 +129,17 @@ export async function createGeneratedDraft(input: {
   notes: string;
   complianceMode: "standard" | "safe";
   assetIds: string[];
+  knowledgePaths?: string[];
 }) {
   const state = await readStudioState();
   const attachments = state.assets.filter((asset) => input.assetIds.includes(asset.id));
-  const knowledgeHighlights = await getKnowledgeHighlightsForLane(input.sourceLane);
+  const [linkedKnowledge, laneKnowledge] = await Promise.all([
+    getKnowledgeHighlightsForPaths(input.knowledgePaths || []),
+    getKnowledgeHighlightsForLane(input.sourceLane)
+  ]);
+  const knowledgeHighlights = [...linkedKnowledge, ...laneKnowledge].filter(
+    (value, index, values) => values.indexOf(value) === index
+  );
   const generated = await generateDraft({
     ...input,
     attachments,
@@ -154,15 +165,30 @@ export async function createDraftFromTopic(topicId: string) {
     throw new Error("Topic not found.");
   }
 
-  return createGeneratedDraft({
+  const draft = await createGeneratedDraft({
     sendDay: topic.sendDay,
     audience: topic.suggestedAudience,
     sourceLane: topic.sourceLane,
     topic: topic.title,
     notes: topic.angle,
     complianceMode: "safe",
-    assetIds: []
+    assetIds: [],
+    knowledgePaths: topic.linkedKnowledgePaths
   });
+
+  await updateStudioState((current) => ({
+    ...current,
+    topics: current.topics.map((entry) =>
+      entry.id === topicId
+        ? {
+            ...entry,
+            used: true
+          }
+        : entry
+    )
+  }));
+
+  return draft;
 }
 
 export async function reviseExistingDraft(draftId: string, instruction: string) {
@@ -365,13 +391,38 @@ export async function batchScheduleMonth(monthKey: string) {
   const state = await readStudioState();
   const approved = state.drafts.filter((draft) => draft.status === "approved");
   const availableDates = getSendDatesForMonth(monthKey);
+  const occupiedDates = new Set(
+    state.schedule.filter((entry) => entry.status !== "archived").map((entry) => entry.scheduledFor)
+  );
+  const mondayDates = availableDates.filter((date) => {
+    const isMonday = new Date(`${date}T12:00:00`).getDay() === 1;
+    return isMonday && !occupiedDates.has(date);
+  });
+  const thursdayDates = availableDates.filter((date) => {
+    const isThursday = new Date(`${date}T12:00:00`).getDay() === 4;
+    return isThursday && !occupiedDates.has(date);
+  });
+  const mondayDrafts = approved.filter((draft) => draft.sendDay === "Monday");
+  const thursdayDrafts = approved.filter((draft) => draft.sendDay === "Thursday");
   let scheduledCount = 0;
 
-  for (const draft of approved) {
-    const nextDate = availableDates.find((date) => {
-      const isMonday = new Date(`${date}T12:00:00`).getDay() === 1;
-      return draft.sendDay === "Monday" ? isMonday : !isMonday;
+  for (const [index, draft] of mondayDrafts.entries()) {
+    const nextDate = mondayDates[index];
+
+    if (!nextDate) {
+      continue;
+    }
+
+    await scheduleApprovedDraft({
+      draftId: draft.id,
+      scheduledFor: nextDate,
+      manualOverride: false
     });
+    scheduledCount += 1;
+  }
+
+  for (const [index, draft] of thursdayDrafts.entries()) {
+    const nextDate = thursdayDates[index];
 
     if (!nextDate) {
       continue;

@@ -2,35 +2,36 @@
 
 ## Purpose
 
-Capture first pass internal video demo ideas and supporting asset needs for Google AI training topics.
+Give the training system a short list of internal video demos worth building next.
 
 ## Source Basis
 
-1. `01_google_ai_for_loan_officers/01_NOTEBOOK_BRIEF.md`
-2. `04_weekly_training_production_lab/01_NOTEBOOK_BRIEF.md`
+1. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/04_google_ai_for_loan_officers/SOURCE_PACKET_4_GOOGLE_AI_FOR_LOAN_OFFICERS.md`
+2. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/03_loan_factory_and_terraplus_operations/SOURCE_PACKET_3_LOAN_FACTORY_AND_TERRAPLUS_OPERATIONS.md`
 
 ## Current Status
 
-First pass internal demo planning doc.
+PASS 2 internal demo list for topic-bank support and attachment planning.
 
-## Needs Factual Validation
+## Priority Demo Ideas
 
-1. Which tools are actually available to demo
-2. Which screens or workflows can be shown safely
-
-## Needs Compliance Review
-
-1. Any demo using borrower data, NPI, or live file details
-
-## Demo Ideas
-
-1. Inbox triage in one short block
-2. Transcript to Monday email
-3. CRM note cleanup after a call
-4. NotebookLM recap to topic bank
+1. Gemini inbox triage in 60 to 90 seconds
+2. Voice memo to CRM note cleanup
+3. NotebookLM guideline lookup and action extraction
+4. Build your first Lead Reply Gem
+5. Mobile vCard capture workflow
 
 ## Asset Checklist
 
-1. Clean test data
-2. Safe screenshots or demo clips
-3. On-screen review note where needed
+1. Clear screen path
+2. One voiceover line per step
+3. One visible caution note when sensitive data or policy is involved
+4. One clear next action at the end
+
+## Needs Factual Validation
+
+1. Whether the current Gemini, NotebookLM, or Workspace UI has changed enough to invalidate any screen-step instructions
+
+## Needs Compliance Review
+
+1. Any demo using live borrower data, call content, or sensitive internal workflow detail

@@ -10,15 +10,15 @@
     "remote_url": "https://github.com/jeremymac904/LoanFactory-Mon-and-Thursday-AI-Email-App.git",
     "last_pushed_ref": "origin/main"
   },
-  "current_phase": "Phase 2 - Working product shell and focused knowledge layer",
+  "current_phase": "Phase 3 - PASS 2 source-grounded knowledge and product tightening",
   "active_contract": "Agent_Task_Contract.md",
   "knowledge_system_root": "knowledge_system",
   "current_state": {
-    "status": "first_pass_built",
-    "summary": "The repo now contains a working Next.js internal training email studio, a file-backed local data layer, provider adapters with mock-safe fallback, seeded Monday and Thursday content, and a focused markdown knowledge system that supports the product shell."
+    "status": "pass2_source_grounded",
+    "summary": "The repo now contains imported raw source packets, packet-grounded weekly, sales, Google AI, and operations knowledge docs, plus a tightened training email studio with better prompt shaping, richer topic banks, improved seeded content, clearer attachment preview behavior, and safer month scheduling."
   },
   "app_status": {
-    "status": "working_first_pass_built",
+    "status": "working_shell_tightened_with_source_packets",
     "routes": [
       "/",
       "/drafts",
@@ -43,20 +43,20 @@
   },
   "lane_status": {
     "01_google_ai_for_loan_officers": {
-      "status": "focused_first_pass_built",
-      "next_priority": "Validate current Google AI capabilities against official sources, then expand the lane into a fuller tool map and review-rules set."
+      "status": "pass2_source_grounded",
+      "next_priority": "Validate the real Google AI capability surface and then tighten the prompt library from Jeremy's preferred outputs."
     },
     "02_loan_factory_and_terraplus_operations": {
-      "status": "focused_first_pass_built",
-      "next_priority": "Load internal workflow artifacts, then replace the current scaffolds with validated process maps and approval rules."
+      "status": "pass2_source_grounded",
+      "next_priority": "Replace the remaining caution-level operational notes with validated internal workflow artifacts when they are available."
     },
     "03_sales_marketing_communication_and_conversion": {
-      "status": "v1_first_pass_built",
-      "next_priority": "Add reviewed real message examples and upgrade the prompt library once HAPPA is factually defined."
+      "status": "pass2_source_grounded",
+      "next_priority": "Load approved real message examples so the sales and transparency docs can move from framework level to example-backed level."
     },
     "04_weekly_training_production_lab": {
-      "status": "v1_first_pass_built",
-      "next_priority": "Run one real transcript through the studio and weekly workflow, then tighten the template and topic banks using source grounded evidence."
+      "status": "pass2_source_grounded",
+      "next_priority": "Review one generated Monday issue and one generated Thursday issue with Jeremy and tune the template from actual edit patterns."
     }
   },
   "shared_assets": [
@@ -64,34 +64,37 @@
     "knowledge_system/shared/standards/KNOWLEDGE_AUTHORING_STANDARD.md",
     "knowledge_system/shared/standards/COMPLIANCE_DISCLAIMER_SNIPPETS.md",
     "knowledge_system/shared/workflows/NOTEBOOK_OUTPUT_TO_MARKDOWN_WORKFLOW.md",
-    "knowledge_system/shared/prompts/NOTEBOOKLM_GEMINI_PROMPT_LIBRARY.md"
+    "knowledge_system/shared/prompts/NOTEBOOKLM_GEMINI_PROMPT_LIBRARY.md",
+    "continuity/source_packets/2026-03-23_codex_pass2/SOURCE_PACKET_IMPORT_MAP.md"
   ],
   "validation": {
-    "status": "completed_structural_validation",
+    "status": "pass2_validation_completed",
     "notes": [
-      "npm install completed successfully.",
+      "Raw source packet bundle was unpacked and imported into continuity/source_packets/2026-03-23_codex_pass2/.",
       "npm run typecheck passed.",
       "npm run build passed.",
-      "Dashboard, Draft Studio, and draft detail pages were inspected through a browser-backed Playwright CLI pass.",
-      "HTTP checks confirmed live 200 responses for /topics, /drafts/draft-monday-2, and /favicon.ico.",
-      "Needs factual validation and Needs compliance review markers were checked across the knowledge layer.",
-      "Git repository was initialized on main, origin was attached, and the first-pass build was pushed to GitHub."
+      "Browser-backed validation created a Monday draft from the topic bank.",
+      "Browser-backed validation revised the new Monday draft with AI instructions.",
+      "Browser-backed validation approved the revised Monday draft.",
+      "Browser-backed validation created a Thursday draft from the topic bank.",
+      "App-form validation batch-scheduled April 2026 and produced Monday and Thursday scheduled items without date collisions.",
+      "Knowledge docs and uncertainty markers were rechecked after the packet-grounding pass."
     ]
   },
   "open_flags": {
     "needs_factual_validation": [
-      "Real company process details and approval owners",
-      "Real performance examples and message performance data",
+      "Real Loan Factory process details and approval owners",
       "Current Google AI product capabilities and internal tool availability",
-      "Portal field requirements and automation trigger design",
       "The meaning and intended usage of HAPPA in the Loan Factory context",
-      "MOSO and seven-day SLA definitions and approved workflow meaning"
+      "MOSO and seven-day SLA definitions and approved workflow meaning",
+      "Actual rate lock, extension, rate-alert, and consent policy details"
     ],
     "needs_compliance_review": [
-      "Borrower facing, lead facing, and realtor facing templates or messages before live use",
+      "Borrower-facing, lead-facing, and realtor-facing templates or messages before live use",
       "Training or communication content that references loan products, rates, approvals, fees, timelines, or borrower scenarios",
-      "Operational guides covering rate locks, extensions, rate alerts, or AI-assisted 1003 handling"
+      "Operational guides covering rate locks, extensions, rate alerts, AI-assisted 1003 handling, or escalation workflow guidance",
+      "AI governance and NPI guidance before it is treated as company policy"
     ]
   },
-  "next_best_move": "Take one real Monday topic and one real Thursday topic through the live studio flow with validated source material, then tune the AI prompts, approval notes, and topic banks from Jeremy's feedback."
+  "next_best_move": "Review one generated Monday issue and one generated Thursday issue with Jeremy, then tune the prompt library, memory defaults, and topic banks from his actual edit and approval notes."
 }

@@ -2,29 +2,35 @@
 
 ## Purpose
 
-Provide a first pass guide for deciding which internal workflows should become Gems later.
+Show the simplest high-value way to turn a repeated internal use case into a reusable Gem.
 
 ## Source Basis
 
-1. `01_google_ai_for_loan_officers/01_NOTEBOOK_BRIEF.md`
-2. `01_google_ai_for_loan_officers/09_MARKDOWN_BUILD_QUEUE.md`
+1. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/04_google_ai_for_loan_officers/SOURCE_PACKET_4_GOOGLE_AI_FOR_LOAN_OFFICERS.md`
 
 ## Current Status
 
-First pass guide, not a validated Gems inventory.
+PASS 2 working guide for topic-bank support and prompt standardization.
+
+## Best First Gems
+
+1. Lead Reply Gem
+2. Meeting or call note cleanup Gem
+3. Conditions triage Gem
+4. Listing description or content idea Gem
+
+## Build Pattern
+
+1. Pick one repeated job only
+2. Define the desired output shape
+3. Load an approved example if one exists
+4. Add explicit safety rules about unsupported facts and compliance-sensitive content
+5. Test on one narrow case before broader use
 
 ## Needs Factual Validation
 
-1. Current Gemini Gems capabilities and limits
-2. Which workflows are repeated enough to justify a Gem
+1. Real Gemini Gem sharing limits, permissions, and deployment options in the intended environment
 
 ## Needs Compliance Review
 
-1. Any Gem that drafts regulated communication without review controls
-
-## Good Gem Candidates
-
-1. Monday quick win draft shaper
-2. Thursday field move draft shaper
-3. Transcript to training extractor
-4. CRM note cleanup prompt
+1. Any Gem used to draft borrower, lead, or realtor-facing content

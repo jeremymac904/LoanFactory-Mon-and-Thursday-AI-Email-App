@@ -2,60 +2,50 @@
 
 ## Purpose
 
-Define how the weekly training issue should read when it is tailored for a specific team or local workflow.
+Define the PASS 2 style rules for the team version of Monday and Thursday training emails.
 
 ## Source Basis
 
-1. `04_weekly_training_production_lab/01_NOTEBOOK_BRIEF.md`
-2. `04_weekly_training_production_lab/04_DOMAIN_MAP.md`
-3. `04_weekly_training_production_lab/07_NOTEBOOKLM_STARTER_PROMPT.md`
-4. `04_weekly_training_production_lab/09_MARKDOWN_BUILD_QUEUE.md`
+1. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/01_weekly_training_production_lab/SOURCE_PACKET_1_WEEKLY_TRAINING_PRODUCTION_LAB.md`
+2. `continuity/source_packets/2026-03-23_codex_pass2/loan_factory_codex_source_packets/05_operator_notes/NORMALIZED_OPERATOR_NOTES_FOR_CODEX.md`
 
 ## Current Status
 
-First pass style guide built from the stated need for a team specific variant.
+PASS 2 working guidance used by the topic banks, seeded team drafts, and the Draft Studio prompts.
 
-## Needs Factual Validation
+## Tone Rules
 
-1. Actual team names, workflow differences, and manager preferences
-2. Which team specific tools, portal views, or approval paths can be referenced safely
+1. Sound direct, local, practical, and execution-driven.
+2. Speak like a peer operator who has seen the friction point before.
+3. Call out one bottleneck, one useful move, and one next action.
+4. Keep examples close to real field situations, but remove sensitive file details.
 
-## Needs Compliance Review
+## What To Include
 
-1. Team specific examples that reference live files, pipeline details, borrower situations, or loan guidance
-
-## Tone
-
-1. Direct
-2. Practical
-3. Coach like
-4. Close to the day to day workflow
-
-## What To Emphasize
-
-1. The exact habit the team should adopt
-2. Where the action fits in the real workflow
-3. Common execution mistakes
-4. The local owner or follow up path when relevant
+1. Real bottlenecks, local wins, peer examples, or huddle-level takeaways
+2. One concrete action the reader can do this week
+3. Light operator language such as `quick win`, `keep it clean`, or `what to do in the next 24 hours`
+4. Review notes when the lesson touches rates, approvals, products, or operational policy
 
 ## What To Avoid
 
-1. Broad corporate language with no local action
-2. References to internal details that are not verified
-3. Long theory sections
-4. Team specific claims that other teams could misread as company policy
+1. Corporate-newsletter tone
+2. Generic motivation with no tactic attached
+3. Multiple lessons in one issue
+4. Hyper-specific file details that should stay out of reusable training content
 
-## Recommended Section Shifts
+## Useful Optional Inserts
 
-1. Shorten the opener and move quickly to action
-2. Add one workflow example tied to the team context
-3. Add one short manager or reviewer note if helpful
-4. End with the exact step the team should take this week
+1. Leaderboard recognition or peer shout-out when it supports the lesson
+2. One local market play or recent team blocker
+3. One short script line that the team can copy and adapt
+4. One short video demo callout when an attachment makes the workflow clearer
 
-## Review Gate
+## Needs Factual Validation
 
-Before send, confirm:
+1. Which local language, examples, and team references Jeremy wants emphasized most
+2. Whether any existing team newsletter conventions should override this draft style guide
 
-1. The issue is truly team specific and not better as company wide guidance
-2. Local workflow claims were checked by a qualified owner
-3. Sensitive examples were sanitized or removed
+## Needs Compliance Review
+
+1. Any team variant that includes policy, product, rate, approval, or borrower-specific guidance

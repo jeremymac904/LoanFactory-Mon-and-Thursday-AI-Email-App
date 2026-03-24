@@ -86,3 +86,23 @@ export async function getKnowledgeHighlightsForLane(
     .slice(0, limit)
     .map((doc) => `${doc.title}: ${doc.preview}`);
 }
+
+export async function getKnowledgeHighlightsForPaths(
+  relativePaths: string[],
+  limit = 4
+): Promise<string[]> {
+  const highlights = await Promise.all(
+    relativePaths.slice(0, limit).map(async (relativePath) => {
+      const filePath = path.join(process.cwd(), relativePath);
+
+      try {
+        const markdown = await readFile(filePath, "utf8");
+        return `${extractTitle(markdown, path.basename(filePath, ".md"))}: ${extractPreview(markdown)}`;
+      } catch {
+        return null;
+      }
+    })
+  );
+
+  return highlights.filter(Boolean) as string[];
+}
